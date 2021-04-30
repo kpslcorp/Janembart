@@ -1,0 +1,240 @@
+RewriteEngine on
+# Start Abuse Agent Blocking
+RewriteCond %{HTTP_USER_AGENT} "^Mozilla.*Indy" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Mozilla.*NEWT" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^$" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Maxthon$" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^SeaMonkey$" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Acunetix" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^binlar" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^BlackWidow" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Bolt 0" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^BOT for JCE" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Bot mailto\:craftbot@yahoo\.com" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^casper" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^checkprivacy" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^ChinaClaw" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^clshttp" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^cmsworldmap" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Custo" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Default Browser 0" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^diavol" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^DIIbot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^DISCo" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^dotbot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Download Demon" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^eCatch" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^EirGrabber" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^EmailCollector" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^EmailSiphon" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^EmailWolf" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Express WebPictures" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^extract" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^ExtractorPro" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^EyeNetIE" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^feedfinder" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^FHscan" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^FlashGet" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^flicky" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^g00g1e" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^GetRight" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^GetWeb\!" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Go\!Zilla" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Go\-Ahead\-Got\-It" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^grab" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^GrabNet" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Grafula" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^harvest" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^HMView" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Image Stripper" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Image Sucker" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^InterGET" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Internet Ninja" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^InternetSeer\.com" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^jakarta" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Java" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^JetCar" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^JOC Web Spider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^kanagawa" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^kmccrew" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^larbin" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^LeechFTP" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^libwww" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Mass Downloader" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^microsoft\.url" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^MIDown tool" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^miner" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Mister PiX" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^MSFrontPage" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Navroad" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^NearSite" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Net Vampire" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^NetAnts" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^NetSpider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^NetZIP" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^nutch" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Octopus" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Offline Explorer" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Offline Navigator" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^PageGrabber" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Papa Foto" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^pavuk" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^pcBrowser" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^PeoplePal" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^planetwork" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^psbot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^purebot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^pycurl" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^RealDownload" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^ReGet" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Rippers 0" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^sitecheck\.internetseer\.com" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^SiteSnagger" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^skygrid" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^SmartDownload" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^sucker" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^SuperBot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^SuperHTTP" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Surfbot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^tAkeOut" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Teleport Pro" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Toata dragostea mea pentru diavola" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^turnit" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^vikspider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^VoidEYE" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Web Image Collector" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebAuto" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebBandit" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebCopier" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebFetch" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebGo IS" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebLeacher" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebReaper" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebSauger" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Website eXtractor" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Website Quester" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebStripper" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebWhacker" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WebZIP" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Widow" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WPScan" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WWW\-Mechanize" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^WWWOFFLE" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Xaldon WebSpider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^Zeus" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "^zmeu" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "360Spider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "CazoodleBot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "discobot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "EasouSpider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "ecxi" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "GT\:\:WWW" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "heritrix" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "HTTP\:\:Lite" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "HTTrack" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "ia_archiver" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "id\-search" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "IDBot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Indy Library" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "IRLbot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "ISC Systems iRc Search 2\.1" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "LinksCrawler" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "LinksManager\.com_bot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "linkwalker" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "lwp\-trivial" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "MFC_Tear_Sample" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Microsoft URL Control" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Missigua Locator" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "MJ12bot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "panscient\.com" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "PECL\:\:HTTP" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "PHPCrawl" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "PleaseCrawl" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "SBIder" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "SearchmetricsBot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Snoopy" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Steeler" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "URI\:\:Fetch" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "urllib" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Web Sucker" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "webalta" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "WebCollage" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Wells Search II" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "WEP Search" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "XoviBot" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "YisouSpider" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "zermelo" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "ZyBorg" [NC,OR]
+# End Abuse Agent Blocking
+# Start Abuse HTTP Referrer Blocking
+RewriteCond %{HTTP_REFERER} "^https?://(?:[^/]+\.)?semalt\.com" [NC,OR]
+RewriteCond %{HTTP_REFERER} "^https?://(?:[^/]+\.)?kambasoft\.com" [NC,OR]
+RewriteCond %{HTTP_REFERER} "^https?://(?:[^/]+\.)?savetubevideo\.com" [NC]
+# End Abuse HTTP Referrer Blocking
+RewriteRule ^.* - [F,L]
+# End HackRepair.com Blacklist, http://pastebin.com/u/hackrepair
+
+SetEnvIfNoCase Referer ".*(pearltrees|appspot|updowner|wasalive|gipoco|topalternate.com|seoprofiler.com|dig.do|woorank.com|fazarlink.eu|whoisss.com|semalt.com|buttons-for-your-website.com|best-seo-offer.com|best-seo-solution.com|buttons-for-website.com|4webmasters.org|trafficmonetize.org|pageinsider.com).*" spammer=yes
+Order allow,deny
+allow from all
+deny from env=spammer
+
+RewriteCond %{HTTP_USER_AGENT} AppEngine-Google [NC]
+RewriteRule .* - [F]
+
+RewriteCond %{HTTP_USER_AGENT} updownerbot [NC]
+RewriteRule . - [F,L]
+
+ErrorDocument 400 erreur.php
+ErrorDocument 401 erreur.php
+ErrorDocument 402 erreur.php
+ErrorDocument 403 erreur.php
+ErrorDocument 404 erreur.php
+ErrorDocument 405 erreur.php
+ErrorDocument 500 erreur.php
+ErrorDocument 501 erreur.php
+ErrorDocument 502 erreur.php
+ErrorDocument 503 erreur.php
+ErrorDocument 504 erreur.php
+ErrorDocument 505 erreur.php
+
+#Activation du mod Expires
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType text/css "access plus 1 month"
+ExpiresByType text/html "access plus 7200 seconds"
+ExpiresByType application/pdf "access plus 1 month"
+ExpiresByType text/x-javascript "access plus 1 month"
+ExpiresByType application/x-shockwave-flash "access plus 1 month"
+ExpiresByType image/x-icon "access plus 1 year"
+ExpiresDefault "access plus 7 days"
+</IfModule>
+
+#Activation du Mod Deflate
+<IfModule mod_deflate.c>
+# Compresse les fichiers HTML, CSS, JavaScript, Text, XML et les fonts
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+AddOutputFilterByType DEFLATE application/x-font
+AddOutputFilterByType DEFLATE application/x-font-opentype
+AddOutputFilterByType DEFLATE application/x-font-otf
+AddOutputFilterByType DEFLATE application/x-font-truetype
+AddOutputFilterByType DEFLATE application/x-font-ttf
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE font/opentype
+AddOutputFilterByType DEFLATE font/otf
+AddOutputFilterByType DEFLATE font/ttf
+AddOutputFilterByType DEFLATE image/svg+xml
+AddOutputFilterByType DEFLATE image/x-icon
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/javascript
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/xml

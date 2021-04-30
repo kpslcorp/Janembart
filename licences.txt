@@ -1,0 +1,41 @@
+/**************************************************************
+
+*              © Janembart X Bartemis                         *
+* Les grecs avaient Artemis, vous aviez Bartemis, vous aurez
+                     JANEMBAAAART			      *
+
+* ____________________________________________________________*
+* Version :          3.0.0                                    *
+* Date de sortie de Bartemis   28 12 2009	            	  *
+* Date de sortie de Janembart  01 01 2021		              *
+* Dernière Modification :   30 04 2021		            	  *
+* Ce logiciel est sous licence libre et est distribué sans    *
+* aucune garantie, lire licences.txt pour plus de précisions. *
+* ____________________________________________________________*
+
+***************************************************************
+
+Janembart est un forks du script de génération d'annuaire Bartemis laissé à l'abandon par son créateur, ce qui permet à ce formidable outil de revivre et d'être compatible avec les nouvelles normes (PHP 8.0, HTTPS...)
+
+Le Script Janembart X Bartemis est un script Open Source soumis a une licence GNU GPL (https://www.gnu.org/) vous permettant de créer votre annuaire en quelques secondes.
+
+Vous êtes donc autoriser à utiliser, copier, modifier et/ou distribuer en respectant les conditions suivantes : 
+
+* Vous ne devez pas supprimer les en-têtes en haut de chaque fichier ni le lien de parenté en bas des pages générés par le script ou encore ce fichier
+* Vous n'êtes pas autorisé à vendre une partie ou même l'ensemble du code source de ce script d'annuaire
+
+Ces conditions s'appliquent aussi aux modifications disponible en téléchargement
+
+Janembart se garde le droit de modifier à tout moment ses conditions générales d'utilisations.
+
+Ce paquet est fournie au format zip sans garanties, nous déclinons toutes responsabilités en cas de détérioration de votre matériel lors de l'utilisation du script Bartemis X Janembart. 
+
+--------------------
+
+© Janembart
+https://janembart.com
+** fr ** <help@janembart.com>
+
+--------------------
+© Bartemis
+Merci à Robin D. pour sa création initiale sans qui rien n'aurait été possible.
