@@ -1,14 +1,14 @@
 /**************************************************************
 
-*              © Janembart X Bartemis                         *
-* Les grecs avaient Artemis, vous aviez Bartemis, vous aurez
-                     JANEMBAAAART			      *
+		   © Janembart X Bartemis                         
+	Les grecs avaient Artemis, vous aviez Bartemis,
+		   vous aurez JANEMBAAAART !		      
 
-* ____________________________________________________________*
-* Version :          3.0.0                                    *
-* Date de sortie de Bartemis   28 12 2009	            	  *
-* Date de sortie de Janembart  01 01 2021		              *
-* Dernière Modification :   30 04 2021		            	  *
+ ____________________________________________________________
+* Version :          3.0.1                                    *
+* Date de sortie de Bartemis   28 12 2009	              *
+* Date de sortie de Janembart  01 01 2021		      *
+* Dernière Modification :   20 05 2021		              *
 * Ce logiciel est sous licence libre et est distribué sans    *
 * aucune garantie, lire licences.txt pour plus de précisions. *
 * ____________________________________________________________*
