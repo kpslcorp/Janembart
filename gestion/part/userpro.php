@@ -70,22 +70,27 @@ if($aiguilleur=='1') {
 								<?php
 								
 								foreach($mywebsites as $m_s){
-									$monjolititre 	= $m_s['titre'];
+									$monjolititre 	= cut_str(stripslashes($m_s['titre']),50);
 									$majolieid 		= $m_s['id_site'];
 									$hk_plink 		= $m_s['info']['permanlink'];
 									$url_plink		= $m_s['info']['url'];
+									$note			= $m_s['note'];
 									$date2val		= new DateTime($m_s['date2validation']);
 									$date2val 		= $date2val->format('d/m/Y');
-									
 									if ($lorder == "url") { // Hack si on veut trier par URL
 										$monjolititre = $url_plink;
+									}
+									if ($note > 50) {
+										$premium = " 🏆 ";
+									} else {
+										$premium = NULL;
 									}
 								?>	
 									<li>
 										<span style="display:block;">
 											<?php if (isset($hk_plink)) {echo "<a href='$hk_plink' target='_blank' rel='nofollow noopener noreferrer'>🗨️</a>";}; ?>
 											<?php if (isset($url_plink)) {echo "<a href='$url_plink' target='_blank' rel='nofollow noopener noreferrer'>🌐</a>";} ?>
-											<?php echo "<a href='gestion/?act=1&id=$majolieid'>⚙️ $monjolititre</a> | 📅 $date2val"; ?>
+											<?php echo "<a href='gestion/?act=1&id=$majolieid'>⚙️ $premium$monjolititre</a> <span style='float:right'>$date2val 📅</span>"; ?>
 										</span>
 									</li>
 								
