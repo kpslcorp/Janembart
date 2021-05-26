@@ -1,74 +1,77 @@
 <?php
-
 // Module pour empecher le include d'être appelé directement
 if (empty($variable_temoin))
 {
-exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
+	exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
 } 
 // Module pour empecher le include d'être appelé directement
 
 $id_sect = intval($_GET['id']);
 $sect = rcp_sect($id_sect, "", "");	
 
-$se = $sect[0];
-$pt = intval($_GET['p']);
-$nb_total = count_page($se['id_sect']);
-$current_permalink = $se['info']['permanlink'];
-
-$limit = $nb_fiche_section;
-$page = isset($pt) ? $pt : ''; 
-
-if ($nb_total > $limit) {
-			$i=0; $j=1;
-			
-			if($nb_total>$limit) {
-			$bread2k2k = "";
-			
-				while($i<($nb_total/$limit)) {
-				
-					if($i!=$page){
-						$bread2k2k .= '<a href="'.$current_permalink.'?p='.$i.'" class="navp" title="'.$titre_c.'">'.$j.'</a>';}
-					
-					else {
-						$bread2k2k .= '<b class="active">'.$j.'</b>';
-					}
-					
-					$i++;$j++;
-				
-				}
-			}
-
-								
-	if (!empty($pt))
-	{
-		$page = $pt;					
-		$tortueninja = true;	
-	}	
-	
-
-
-$smart_p = $pt+1;
-$smart_r = $j-1;
-
-	if ($smart_p > $smart_r)
-	{
-
-		header("Status: 301 Moved Permanently", false, 301);
-		header("Location: $current_permalink");
-		//exit();
-	}
-}
-
-$testexistenciel = $sect;
-if (empty($testexistenciel)) 
-{
+if (empty($sect)){
 	header("Status: 301 Moved Permanently", false, 301);
 	header("Location: $url_annuaire");
 	exit();
 } 
-else {	
-	include 'header.php';	
+
+$se = $sect[0];
+$nb_total = count_page($se['id_sect']);
+$current_permalink = $se['info']['permanlink'];
+$pt = intval($_GET['p']);
+$page = isset($pt) ? $pt : NULL; 
+$limit = $nb_fiche_section;
+
+if ($nb_total > $limit) {
+	
+	$i=0; $j=1;
+	
+	$bread2k2k = "";
+	
+	while($i<($nb_total/$limit)) {
+	
+		if($i!=$page){
+			
+			$bread2k2k .= '<a href="'.$current_permalink.'?p='.$i.'" class="navp" title="'.$titre_c.'">'.$j.'</a>';
+			
+		} else {
+			
+			$bread2k2k .= '<b class="active">'.$j.'</b>';
+			
+		}
+		
+		$i++;$j++;
+	
+	}
+					
+	if (!empty($pt)) {
+		$page = $pt;					
+		$tortueninja = true;	
+	}	
+
+	$smart_p = $pt+1;
+	$smart_r = $j-1;
+	
+	 
+} else {
+	
+	$bread2k2k = NULL;
+	$smart_p = 0;
+	$smart_r = 0;
+	
 }
+
+$redirect_page0 = isset($_GET['p']) ? $_GET['p'] : NULL; // Permet de détecter le ?p=0 et de le R301 vers la 1ère page de la section non paginée
+
+if (($smart_p > $smart_r) OR (is_numeric($redirect_page0) AND $redirect_page0 == 0) OR (is_numeric($redirect_page0) AND $nb_total <= $limit)){
+
+		header("Status: 301 Moved Permanently", false, 301);
+		header("Location: $current_permalink");
+		exit();
+}
+
+require_once 'header.php';	
+
 ?>
 
 <div id="page_content">
@@ -221,18 +224,21 @@ else {
 	</div>
 
 	<?php } else { ?>
-<p>😭 Aucun site n'a pour le moment retenu notre attention 😭</p>
-<p><a href="<?php echo $url_annuaire; ?>ajouter.html">🗨️ Proposer mon site <<</a></p>
-
-<?php } ?>
 	
+	<p>😭 Aucun site n'a pour le moment retenu notre attention 😭</p>
+	<p><a href="<?php echo $url_annuaire; ?>ajouter.html">🗨️ Proposer mon site <<</a></p>
+
+	<?php } ?>
+	
+	<?php if(!is_null($bread2k2k)) { ?>
 	<div class="navp boom">
 		<?php echo $bread2k2k; ?>	
 	</div>
+	<?php } ?>
+	
+	</div>
 </div>
-</div>
+
 <?php
 
-include 'footer.php';
-
-?>
+require_once 'footer.php';

@@ -5,7 +5,7 @@
 		   vous aurez JANEMBAAAART !		      
 
  ____________________________________________________________
-* Version :          3.0.1                                    *
+* Version :          3.0.2                                    *
 * Date de sortie de Bartemis   28 12 2009	              *
 * Date de sortie de Janembart  01 01 2021		      *
 * Dernière Modification :   20 05 2021		              *
