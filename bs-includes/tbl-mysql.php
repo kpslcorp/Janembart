@@ -11,7 +11,7 @@ require_once dirname(__FILE__).'/../config.php';
 	}
 	catch(Exception $e)
 	{
-        exit("Failed to connect to MySQL");
+       exit("Failed to connect to MySQL");
 	}
 	
 define('TABLE_CAT',SQL_PREFIXE.'cat');
@@ -72,6 +72,7 @@ function rcp_site($id_site, $section, $order, $valide, $type, $limit){
 					$data['info']['cat']['permanlink'] = $url_annuaire.'3.'.$c['id_cat'].'-'.clean($c['titre']).$extension;
 					
 					$data['info']['permanlink'] = $url_annuaire.clean($c['titre']).'/'.clean($se['titre']).'/1.'.$data['id_site'].'-'.clean($data['titre']).$extension;
+					$data['info']['amp'] = $url_annuaire.clean($c['titre']).'/'.clean($se['titre']).'/1.'.$data['id_site'].'-'.clean($data['titre']).'-amp'.$extension;
 			
 					$site[] = $data;
 					
@@ -120,6 +121,7 @@ function rcp_sect($id_sect, $id_cat, $order){
 					$data['info']['cat']['permanlink'] = $url_annuaire.'3.'.$c['id_cat'].'-'.clean($c['titre']).$extension;
 					
 					$data['info']['permanlink'] = $url_annuaire.clean($c['titre']).'/2.'.$data['id_sect'].'-'.clean($data['titre']).$extension;
+					$data['info']['amp'] = $url_annuaire.clean($c['titre']).'/2.'.$data['id_sect'].'-'.clean($data['titre']).'-amp'.$extension;
 			
 					$sect[] = $data;
 					
@@ -158,6 +160,7 @@ function rcp_cat($id_cat, $order){
 		
 			while($data = mysqli_fetch_assoc($req)) {
 				$data['info']['permanlink'] = $url_annuaire.'3.'.$data['id_cat'].'-'.clean($data['titre']).$extension;
+				$data['info']['amp'] = $url_annuaire.'3.'.$data['id_cat'].'-'.clean($data['titre']).'-amp'.$extension;
 				$cat[] = $data;
 			}
 	 
@@ -252,6 +255,7 @@ function rcp_page($id_page, $order){
 		
 			while($data = mysqli_fetch_assoc($req)) {
 				$data['info']['permanlink'] = $url_annuaire.'4.'.$data['id_page'].'-'.clean($data['titre']).$extension;
+				$data['info']['amp'] = $url_annuaire.'4.'.$data['id_page'].'-'.clean($data['titre']).'-amp'.$extension;
 				$page[] = $data;
 			}
 			return $page;
@@ -794,7 +798,7 @@ function site_register($description_c, $fastpass, $coins) {
 		echo $message;
 		echo $message_retour;
 	} else {
-	
+		
 	
 		//Choix si oui ou non le site aura une fiche en fonction du chiffre $description_c
 		if (strlen($description) > intval($description_c)) {

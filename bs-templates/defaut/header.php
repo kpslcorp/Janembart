@@ -1,5 +1,29 @@
 <!doctype html>
-<?php if (empty($noamp)) {$amp = $_GET["amp"]; if (isset($amp)) {$amp=true;} else {$amp=NULL;} }?>
+<?php 
+if ($disable_amp != 'oui') {
+	
+	if (empty($noamp)) {
+		
+		$amp = $_GET["amp"]; 
+		
+		if (!empty($amp)) {
+			
+			$amp = true;
+			
+		} else {
+			
+			$amp = NULL;
+			
+		} 
+		
+	}
+
+} else {
+	
+	$amp = false;
+}
+
+?>
 <html <?php if ($amp == true) {echo "⚡ ";} ?>lang="fr">
 <head>
 <meta charset="utf-8">

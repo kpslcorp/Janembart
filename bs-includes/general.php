@@ -64,7 +64,7 @@ if (isset($_GET['act'])){
 			$head.= '<title>'.broken_html($s['titre']).' - '.url_www ($s['url']).' - '.$titre_annuaire.'</title>'."\n";
 			$head.= '<meta name="description" content="'.broken_html ($s['titre']).' : '.broken_html(cut_str ($s['description'],125)).'" />'."\n";
 			$head.= '<link rel="canonical" href="'.$s['info']['permanlink'].'" />'."\n";
-			$head.= '<link rel="amphtml" href="'.$s['info']['permanlink'].'?amp=1" />'."\n";
+			if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$s['info']['amp'].'" />'."\n"; }
 			$head.= '<meta property="og:title" content="Découvrez '.broken_html($s['titre']).' &#x266e; répertorié sur '.$titre_annuaire.'" />'."\n";
 			
 		}
@@ -100,19 +100,19 @@ if (isset($_GET['act'])){
 		if (intval($_GET['p']) == '0')
 		{
 			$head.= '<link rel="canonical" href="'.$se['info']['permanlink'].'" />'."\n";
-			$head.= '<link rel="amphtml" href="'.$se['info']['permanlink'].'?amp=1" />'."\n";
+			if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$se['info']['amp'].'" />'."\n"; }
 		}
                      
 		elseif (isset($_GET['p']))
 		{
 			$head.= '<link rel="canonical" href="'.$se['info']['permanlink'].'?p='.intval($_GET['p']).'" />'."\n";
-			$head.= '<link rel="amphtml" href="'.$se['info']['permanlink'].'?p='.intval($_GET['p']).'&amp=1" />'."\n";
+			if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$se['info']['amp'].'?p='.intval($_GET['p']).'" />'."\n"; }
 		}
 			
 		else 
 		{
 			$head.= '<link rel="canonical" href="'.$se['info']['permanlink'].'" />'."\n";
-			$head.= '<link rel="amphtml" href="'.$se['info']['permanlink'].'?amp=1" />'."\n";
+			if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$se['info']['amp'].'" />'."\n"; }
 		}
 						
 		
@@ -132,7 +132,7 @@ if (isset($_GET['act'])){
 		$head.= '<title>Catégorie '.broken_html ($c['titre']).' sur '.$titre_annuaire.'</title>'."\n";
 		$head.= '<meta name="description" content="Liste de sites de qualité enregistrés dans la rubrique '.broken_html ($c['titre']).' du site '.$titre_annuaire.'" />'."\n";
 		$head.= '<link rel="canonical" href="'.$c['info']['permanlink'].'" />'."\n";
-		$head.= '<link rel="amphtml" href="'.$c['info']['permanlink'].'?amp=1" />'."\n";
+		if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$c['info']['amp'].'" />'."\n"; }
 
 		
 	}
@@ -151,7 +151,7 @@ if (isset($_GET['act'])){
 		$head.= '<title>'.broken_html ($p['titre']).' - '.$titre_annuaire.'</title>'."\n";
 		$head.= '<meta name="description" content="'.broken_html(cut_str ($p['contenu'],220)).'" />'."\n";
 		$head.= '<link rel="canonical" href="'.$p['info']['permanlink'].'" />'."\n";
-		$head.= '<link rel="amphtml" href="'.$p['info']['permanlink'].'?amp=1" />'."\n";
+		if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$p['info']['amp'].'" />'."\n"; }
 		
 	}
 	//Ajouter
@@ -267,7 +267,7 @@ else {
 		$head.= '<title>'.$hp_metatitle.'</title>'."\n";
 		$head.= '<meta name="description" content="'.$hp_metadesc.'" />'."\n";
 		$head.= '<link rel="canonical" href="'.$url_annuaire.'" />'."\n";
-		$head.= '<link rel="amphtml" href="'.$url_annuaire.'?amp=1" />'."\n";
+		if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$url_annuaire.'index-amp.html" />'."\n"; }
 }	
 		
   return $head;

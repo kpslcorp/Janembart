@@ -16,7 +16,7 @@ $hp_metadesc = addslashes($_POST["hp_metadesc"]);
 $nb_fiche_section = $_POST["nb_fiche_section"];
 $way_of_the_fight = getcwd();
 $extension = ".html";
-$version="3.0";
+$version="3.0.4";
 
 // Detection du protocole (y compris via Flexible SSL de Cloudflare)
 $rooturl ="";
@@ -222,6 +222,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				$smartimprovment .= "define('SQL_PREFIXE','$smartsqlprefixe'); // Préfixe des tables de la BDD"."\n";
 				$smartimprovment .= "define('BATBASE','$way_of_the_fight');"."\n\n";
 				$smartimprovment .= "// Configurations Annexes"."\n";
+				$smartimprovment .= "\$disable_amp = 'non'; // 'oui' si vous souhaitez désactiver AMP / laissez vide pour laisser activé une version AMP"."\n";
 				$smartimprovment .= "\$google_analytics = '$google_analytics'; // Laissez vide si vous n'utilisez pas Google Analytics"."\n";
 				$smartimprovment .= "\$nb_cara_description = '$nb_cara_description'; // Nombre de caractères minimum exigés pour la description des sites soumis"."\n";
 				$smartimprovment .= "\$forcebacklink = '$forcebacklink'; // «oui» = Lien retour obligatoire | «non» = Lien retour faculatif "."\n";
@@ -271,9 +272,13 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				$htaccess2k .="RewriteRule boostmywebsite.html index.php?act=selfpro [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule updatemywebsite.html index.php?act=selfproupdate [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule websiteupdated.html index.php?act=selfproupdated [QSA,L]"."\n\n";
+				$htaccess2k .="RewriteRule index-amp.html index.php?amp=1 [QSA,L]"."\n\n";
 				
+				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)-amp$extension index.php?cat=$1&sect=$2&act=$3&id=$4&titre=$5&amp=1 [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)$extension index.php?cat=$1&sect=$2&act=$3&id=$4&titre=$5 [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)-amp$extension index.php?cat=$1&act=$2&id=$3&sect=$4&amp=1 [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)$extension index.php?cat=$1&act=$2&id=$3&sect=$4 [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^([0-9]+).([0-9]+)-([a-z0-9\-]+)-amp$extension index.php?act=$1&id=$2&cat=$3&amp=1 [QSA,L]"."\n\n";
 				$htaccess2k .="RewriteRule ^([0-9]+).([0-9]+)-([a-z0-9\-]+)$extension index.php?act=$1&id=$2&cat=$3 [QSA,L]"."\n\n";
 
 				$htaccess2k .="#Flux RSS"."\n";

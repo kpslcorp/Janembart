@@ -261,7 +261,7 @@ btns: [
     ],
  plugins: {
         allowTagsFromPaste: {
-            allowedTags: ['h2', 'h3', 'h4', 'h5', 'p', 'br', 'strong', 'em']
+             allowedTags: ['h2', 'h3', 'h4', 'h5', 'p', 'br', 'strong', 'em', 'ul', 'li']
         }
     }	
 });</script>
