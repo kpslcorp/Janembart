@@ -103,7 +103,7 @@
 			
 			<div class='titre_colonne' style='margin-top:5px'>🔗 Vos liens utiles</div>
 			<ul>
-				<li>⚡ Url de la version AMP : <a href="<?php echo $url_annuaire."?amp=1"; ?>" target="_blank"><?php echo $url_annuaire."?amp=1"; ?></a></li>
+				<li><?php if ($disable_amp != "oui") {?>⚡ Url de la version AMP : <a href="<?php echo $url_annuaire."index-amp.html"; ?>" target="_blank"><?php echo $url_annuaire."index-amp.html"; ?></a><?php } else { echo "Version AMP désactivée depuis le fichier config.php";}?></li>
 				<li><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACGUlEQVQ4T53TX0hTURzA8e/d3XbnxLUlpaOkFZW0IQqJkQ8t6GHuodAX3YOi/aGQeqgnrd4iCOrVpIdhovUWIiQsoX9oPkSFPdjIbGrDJ3Pq5pzc/bk3NuWWNkI7T4dzzu9zfr8f5wg/b5a6VUV4jMBBdjZmUWkV5jvs0/8RvH6Vyoww32lXs3PDgWr0ZcdRFn+QCn9EiS9sKx8NMJ++RqHn1oaskpoeIzH6iOTk639CGmAsP4Op2oe+pBxxz2EtKPn1JSvPbqCsRvJCGvDnrljsoKD2EgUnWkA0kFmeI+pvJBOZ/QvRAKmqAaniHOm5ceTxgVyQ3u7C0tKDaCsjsxRmucuLkljahOTvgZJmbcxPfPgeusLdWNufI1r3I38JEHtyMT8g7j2K8YgbyenBcKg2dyj57S3Rvlb0die29iHQiSz7G0mF3mlI3h5IzjqKmroQjGYSI92sBu5S1HAfU00zyclXRHtb8gCCgFRxFjJp5GAAyenF0uyHTIrIg5PoTEXYrr8BJc3CHReqvJJDfjexsh6Lrzu3GOs/jxwcxnplEIOjJpdBNpPijg/orPuI9vhITo1sAaoasDQ93AAuIAdfYHZfpbDuNvLEELGnl9nV1k/2vcQHO1l737cZIFtCZf16CRNDoKroS49hdHrILIaRPw8gubyIJeWkvo+SCn/SgBnAsa2Hv/WQQCj7G08BvTv+kQIhFKHtFxlX1+he0M78AAAAAElFTkSuQmCC"> Url du flux RSS : <a href="<?php echo $url_annuaire."flux/rss.xml"; ?>" target="_blank"><?php echo $url_annuaire."flux/rss.xml"; ?></a></li>
 				<li>📂 Url des sitemaps : <a href="<?php echo $url_annuaire."sitemap/sitemap-1.html"; ?>" target="_blank"><?php echo $url_annuaire."sitemap/sitemap-1.html"; ?></a></li>
 			</ul>
@@ -121,10 +121,11 @@
 			
 			<h5>Comment modifier le template ?</h5>
 			<ul>
-				<li>Rendez-vous dans le dossier 'bs-templates/defaut/' pour trouver tous les fichiers templates.</li>
+				<li>Rendez-vous dans le dossier 'bs-templates/defaut/' pour trouver tous les fichiers de templates.</li>
 				<li>Le code situé entre les balises &lt;head> se trouve dans le fichier "bs-include/general.php"</li>
 			</ul>
-			<p>⚠️ Attention : ce template est 100% compatible AMP (<em>version ultra rapide qui plait beaucoup à Google</em>). En le modifiant pensez à respectez les normes AMP (<a href="https://amp.dev/documentation/guides-and-tutorials/?format=websites" rel="nofollow noreferrer noopener" target="_blank">voir la documentation officielle</a> et le <a href="https://validator.ampproject.org/" rel="nofollow noreferrer noopener" target="_blank">validateur</a>). Vous pouvez vous aider du code variable <strong>&lt;?php if ($amp == true) { } else { } ?></strong> pour insérez dans le thème des éléments spécifiques.</p>
+			<p>⚠️ Attention : le template fourni par défaut est 100% compatible AMP (<em>version ultra rapide qui plait beaucoup à Google</em>). En le modifiant pensez à respectez les normes AMP (<a href="https://amp.dev/documentation/guides-and-tutorials/?format=websites" rel="nofollow noreferrer noopener" target="_blank">voir la documentation officielle</a> et le <a href="https://validator.ampproject.org/" rel="nofollow noreferrer noopener" target="_blank">validateur</a>). Vous pouvez vous aider des codes <strong>&lt;?php if ($amp == true) { %VOTRE CONTENU AMP% } else { %VOTRE CONTENU HTML% } ?></strong> pour insérez dans le thème des éléments spécifiques.</p>
+			<p>Pour désactiver la version AMP, rendez-vous dans le fichier config.php, situé à la racine de votre installation, et paramétrez la variable $disable_amp = 'oui'</p>
 			
 			<h5>Comment changer mon mot de passe ?</h5>
 			<p>↪️ Générez un nouveau mot de passe en <a href="<?php echo $url_annuaire."config/reset.php"; ?>">cliquant ici</a> !</p>
