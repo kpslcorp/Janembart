@@ -203,7 +203,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				if (!file_exists($xfiles)) { // S'il n'existe pas déjà 
 
 				// Construction du fichier config
-				mkdir( $way_of_the_fight, 0755 );
+				@mkdir( $way_of_the_fight, 0755 );
 				$smartimprovment = "<?php"."\n";
 				
 				$smartimprovment .= "// Données sur votre annuaire "."\n";
