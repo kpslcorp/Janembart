@@ -192,19 +192,27 @@ elseif($aiguilleur=='6'){
 			<?php
 
 			// Gestion du tri
-			if(!empty($_GET['order']))
-				{$get_order = str_replace('-', ' ', strip_tags($_GET['order']));}
-			else
-				{$get_order = 'id_site DESC';}
+			if(!empty($_GET['order'])){
+				
+				$get_order = str_replace('-', ' ', strip_tags($_GET['order']));
+				
+			} else {
+				
+				$get_order = 'id_site DESC';
+				
+			}
 			
-			// Gestion des pages
-
-		
+			// Pagination
 			$ma_limite = $_GET['limit'];
-			if(isset($ma_limite))
-				{$limit = intval($ma_limite)+100;}
-			else
-				{$limit = '100';}
+			if(isset($ma_limite)) {
+				
+				$limit = intval($ma_limite)+100;
+				
+			} else {
+				
+				$limit = '100';
+			
+			}
 			
 			// Nombre de sites en attente + validés
 			$sitelimit = stat_site (1, '') + stat_site (2, '');
@@ -215,16 +223,23 @@ elseif($aiguilleur=='6'){
 			
 			require_once dirname(__FILE__).'/../../bs-includes/email_blacklist.php';
 						
-				foreach($site as $s){
+			if (!empty($site)) {
 				
-				$mailauteur = $s['mail_auteur'];
-						if (in_array($mailauteur, $email_colimateur)) 
-						{$spot_relou = "⚠️";} 
-						else 
-						{$spot_relou = "";}
+				foreach($site as $s){
+					
+					$mailauteur = $s['mail_auteur'];
+				
+					if (in_array($mailauteur, $email_colimateur)) {
+						
+						$spot_relou = "⚠️";
+						
+					} else {
+						
+						$spot_relou = "";
+						
+					}
 				
 			?>
-			
 			
 			<tr <?php if ($s['valide'] == 2){ ?>style="opacity:0.5;"<?php } ?>>
 				<td colspan="8"><a class='thuglife' href="<?php echo $s['url']; ?>" target='_blank' rel='nofollow noreferrer noopener' ><?php echo url_www($s['url']); ?></a></td>
@@ -241,10 +256,14 @@ elseif($aiguilleur=='6'){
 				<td><a href="gestion/?act=1&f=31&id=<?php echo $s['id_site']; ?>" onclick="return confirm('Etes-vous sur de vouloir supprimer <?php echo stripslashes($s['titre']); ?> de votre annuaire ?')">🗑️</a></td>
 			</tr>
 
-		
 			<?php 
-			unset($mailauteur); 
-			} ?>
+			
+				unset($mailauteur); 
+				
+				}
+			}
+			
+			?>
 			</tbody>
 		</table>
 		<?php if ($sitelimit > 99) { // Si plus de 99 sites, on affiche un lien vers la page 2, 3, 4... Chaque page affichant 100 sites ?>

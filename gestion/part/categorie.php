@@ -232,7 +232,7 @@ if (strlen($message) > strlen($msg_erreur)) {
 
 	$description = str_replace("\n", "<br />", $description);
 	
-	$sql = "INSERT INTO ".TABLE_SECT." VALUES ('', '".$titre."', '".$id_cat."', '".$description."')";
+	$sql = "INSERT INTO ".TABLE_SECT." VALUES ('', '".$titre."', '".$id_cat."', '".$description."','2')";
 	
 	$res = mysqli_query($connexion,$sql);
 		  
@@ -284,7 +284,8 @@ elseif($aiguilleur=='22'){ // Update Section
 		<?php 
 		
 		$cat = rcp_cat("", "ORDER BY titre ASC");
-		
+		if (!empty($cat)) {
+			
 			foreach($cat as $c){
 			
 				$sect = rcp_sect("", $c['id_cat'], "ORDER BY titre ASC");
@@ -299,9 +300,13 @@ elseif($aiguilleur=='22'){ // Update Section
 			<td><a href="gestion/?act=8&f=46&id=<?php echo $se['id_sect']; ?>"><img src="images/supprimer.png" border="0"></a></td>
 		</tr>
 		
-					<?php }
+		<?php 							}
 					
-			} ?>
+			} 
+			
+		}
+		
+		?>
 		</tbody>
 	</table>
 
@@ -316,8 +321,11 @@ elseif($aiguilleur=='22'){ // Update Section
 		</thead>
 		<tbody>
 		<?php 
+		
 		$cat = rcp_cat("", "ORDER BY titre ASC");
 		
+		if (!empty($cat)) {
+			
 			foreach($cat as $c){
 				
 		?>
@@ -330,7 +338,11 @@ elseif($aiguilleur=='22'){ // Update Section
 			
 		</tr>
 		
-		<?php } ?>
+		<?php } 
+		
+		}
+		
+		?>
 		</tbody>
 	</table>
 	<p>* Correspond au nombre de sections dans la catégorie</p>
