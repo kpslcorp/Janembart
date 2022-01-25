@@ -181,7 +181,7 @@ elseif($aiguilleur=='6'){
 			<tr>
 				<th style="text-align:center;width:6%">ID<br /><a href="gestion/?act=1&f=6&order=id_site-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=id_site-DESC">&dArr;</a></th>
 				<th align="center">✅️</th>
-				<th>🌐 URL <a href="gestion/?act=1&f=6&order=url-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=url-DESC">&dArr;</a></th>
+				<th>🌐 URL <a href="gestion/?act=1&f=6&order=url-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=url-DESC">&dArr;</a> | 🏷️ Nom <a href="gestion/?act=1&f=6&order=titre-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=titre-DESC">&dArr;</a></th>
 				<th>✉️ Mail <a href="gestion/?act=1&f=6&order=mail_auteur-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=mail_auteur-DESC">&dArr;</a></th>
 				<td>🔗<br /><a href="gestion/?act=1&f=6&order=url_retour-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=url_retour-DESC">&dArr;</a></td>
 				<th style="text-align:center;width:8%">⭐<br /><a href="gestion/?act=1&f=6&order=note-ASC">&uArr;</a> <a href="gestion/?act=1&f=6&order=note-DESC">&dArr;</a></th>
