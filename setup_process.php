@@ -16,7 +16,7 @@ $hp_metadesc = addslashes($_POST["hp_metadesc"]);
 $nb_fiche_section = $_POST["nb_fiche_section"];
 $way_of_the_fight = getcwd();
 $extension = ".html";
-$version="3.0.4";
+$version="3.1.0";
 
 // Detection du protocole (y compris via Flexible SSL de Cloudflare)
 $rooturl ="";
@@ -272,6 +272,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				$htaccess2k .="RewriteRule boostmywebsite.html index.php?act=selfpro [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule updatemywebsite.html index.php?act=selfproupdate [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule websiteupdated.html index.php?act=selfproupdated [QSA,L]"."\n\n";
+				$htaccess2k .="RewriteRule search.html index.php?act=search [QSA,L]"."\n\n";
 				$htaccess2k .="RewriteRule index-amp.html index.php?amp=1 [QSA,L]"."\n\n";
 				
 				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)-amp$extension index.php?cat=$1&sect=$2&act=$3&id=$4&titre=$5&amp=1 [QSA,L]"."\n";

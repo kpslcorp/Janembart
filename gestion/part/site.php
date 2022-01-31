@@ -167,6 +167,116 @@ elseif($aiguilleur=='667'){
 	
 }
 
+
+
+///////////////////////////
+// Rechercher un site
+///////////////////////////
+
+elseif($aiguilleur=='2501'){ 
+
+
+$resultats = "";
+$resultats_title ="";
+
+try
+{
+	$bddj = new PDO('mysql:host='.$serveur.';dbname='.$base_de_donnee.';charset=utf8', $nom_utilisateur, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));	
+	$bddj->exec("set names utf8");
+}
+catch(Exception $e)
+{
+        die();
+}
+
+$query = trim(broken_html($_POST['search']));
+$bind_slug = str_replace(" ","-",$query);
+
+//traitement de la requête
+if (isset($query) && !empty ($query)) {
+	
+
+	//Requête de sélection MySQL
+	$list = $bddj->prepare("SELECT * FROM ".TABLE_SITE." WHERE titre LIKE :query OR url LIKE :query");
+	$list->bindValue(':query', '%'.$bind_slug.'%');
+	$list->execute();
+
+	//On compte les résultats
+	$count = $list->rowCount();
+
+	//On traite les résultats
+	if ($count == 0) {
+		
+		$resultats_title = "Aucun résultat n'a été trouvé";
+		
+		
+	} else {
+			
+		$result_word = "résultat(s) trouvé(s)";
+		$resultats_title = "$count $result_word : $query";
+
+		$resultats .= "<table id='listisite' style='width:100%;margin-top:25px;'><thead><tr><td>Nom</td><td>Coté Client</td><td>Coté Webmaster</td><td>Site Web</td></tr></thead><tbody>";
+		
+		while ($data = $list->fetch(PDO::FETCH_OBJ)) {
+			  
+			$id = $data->id_site;
+			$nom = $data->titre;
+			$url = $data->url;
+			$level = $data->type;
+			
+			if ($level == 1) {
+			
+				$permanlink = rcp_site($id, "", "", "", "", "");
+				foreach($permanlink as $s){
+					$permanlink = $s['info']['permanlink'];
+					$perman_build = "👁 <a href='$permanlink' target='_blank'>Voir en ligne</a>";
+				}
+				
+			
+			} else {
+				
+				$perman_build = "❌";
+				
+			}
+			
+			$resultats .= "<tr><td><strong>$nom</strong></td><td>$perman_build</td><td>⚙️ <a href='gestion/?act=1&id=$id'>Editer</a></td><td>🌐 <a href='$url' target='_blank'>Ouvrir le site web</a></td></tr>";
+			
+		}
+		
+		$resultats .= "</tbody></table>";
+		
+	}
+
+} else {
+	
+ $resultats_title = "Rechercher un site";
+ 
+}
+
+?>
+
+
+
+
+		<h2><?php echo $resultats_title; ?></h2>
+
+	
+	<div class="box boxlist">
+		
+		<form method="post" id="searchitool">
+		  <input type="search" name="search" placeholder="Entrez votre recherche:" style="width:100%;font-size:20px;padding:10px 0;text-indent:10px;" class="soumettre_input">
+		  <input type="submit" name="submit" value="Chercher 🔍">
+		</form>
+		
+		<?php echo $resultats; ?>
+	
+	</div>
+
+
+
+
+<?php }
+
 ///////////////////////////
 // Afficher tous les sites
 ///////////////////////////
@@ -267,7 +377,7 @@ elseif($aiguilleur=='6'){
 			</tbody>
 		</table>
 		<?php if ($sitelimit > 99) { // Si plus de 99 sites, on affiche un lien vers la page 2, 3, 4... Chaque page affichant 100 sites ?>
-			<p style="margin:20px 0; text-align:center;"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].preg_replace('(&limit=.*)', '', $_SERVER['REQUEST_URI']).'&limit='.$limit; ?>">⏭️ Page Suivante</a></p>
+			<p style="margin:20px 0; text-align:center;"><a href="<?php echo '//'.$_SERVER['HTTP_HOST'].preg_replace('(&limit=.*)', '', $_SERVER['REQUEST_URI']).'&limit='.$limit; ?>">⏭️ Afficher la suite</a></p>
 		<?php } ?>
 	</div>
 
@@ -481,7 +591,7 @@ elseif(intval($_GET['id'])>0) { // Fiche Site
 		
 			<td colspan="2" class="conseltd">
 			
-				<span class="conseil" style="background:#eee;color:black;">💡 Checkez rapidement si la description est unique en regardant les premiers résultats sur Google. Ce n'est pas la méthode ultime mais ça dépanne ! <a href='http://www.google.com/search?hl=fr&q="<?php echo urlencode(cut_str($s['description'], 111)); ?>"' target="_blank" rel="nofollow noreferrer">👀 Comparer sur Google 👀</span></td>
+				<span class="conseil" style="background:#eee;color:black;">💡 Checkez rapidement si la description est unique en regardant les premiers résultats sur Google. Ce n'est pas la méthode ultime mais ça dépanne ! <a href='https://www.google.com/search?hl=fr&q="<?php echo urlencode(cut_str($s['description'], 111)); ?>"' target="_blank" rel="nofollow noreferrer">👀 Comparer sur Google 👀</span></td>
 				
 		</tr>
 		

@@ -18,6 +18,7 @@
 					
 					<li>⚙️ <a href="<?php echo $url_annuaire; ?>gestion/">Accueil de l'Admin</a></li>
 					<li>⌛ <a href="<?php echo $url_annuaire; ?>gestion/">Sites en attente</a></li>
+					<li>🔍 <a href="<?php echo $url_annuaire; ?>gestion/?act=1&f=2501">Chercher un site</a></li>
 					<li>👁️‍🗨️ <a href="<?php echo $url_annuaire; ?>gestion/?act=1&f=6">Tous les sites</a></li>
 					<li>💠 <a href="<?php echo $url_annuaire; ?>gestion/?act=8">Gérer les catégories</a></li>
 					<li>💬 <a href="<?php echo $url_annuaire; ?>gestion/?act=9">Gérer les pages</a></li>
@@ -95,7 +96,8 @@ btns: [
 		});</script>
 
 <style>.trumbowyg-box .trumbowyg-editor{font-family:verdana!important;}.trumbowyg-button-pane button{width:30px;}</style>
-<?php /* Editeur WYSIWYG */ ?>	
 
+<?php /* Editeur WYSIWYG */ ?>	
+<a style="position: fixed;background: #c8c8bf;padding: 25px;right: 10px;bottom: 0;border-radius: 5px;color:black;" href="<?php echo '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>#">Up ⬆️</a>
 </body>
 </html>

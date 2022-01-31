@@ -277,7 +277,7 @@ elseif($aiguilleur=='22'){ // Update Section
 			<tr>
 				<th width="80%">⚙️ Paramétrer les sections</th>
 				<th>ID</th>
-				<th>S</th>
+				<th>X</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -297,7 +297,7 @@ elseif($aiguilleur=='22'){ // Update Section
 		<tr>
 			<td width="80%" class="align_left secsec">⚙️ <a href="gestion/?act=8&f=2&id=<?php echo $se['id_sect']; ?>"><?php echo stripslashes($c['titre']); ?> >> <strong><?php echo stripslashes($se['titre']); ?></strong></a></td>
 			<td><?php echo $se['id_sect']; ?></td>
-			<td><a href="gestion/?act=8&f=46&id=<?php echo $se['id_sect']; ?>"><img src="images/supprimer.png" border="0"></a></td>
+			<td><a href="gestion/?act=8&f=46&id=<?php echo $se['id_sect']; ?>" onclick="return confirm('Attention, si vous supprimez cette rubrique, les sites répertoriés dedans seront orphelins et ne pourront plus être retrouvé !')"><img src="images/supprimer.png" border="0"></a></td>
 		</tr>
 		
 		<?php 							}
@@ -316,7 +316,7 @@ elseif($aiguilleur=='22'){ // Update Section
 			<tr>
 				<th width="80%">⚙️ Paramétrer les catégories</th>
 				<th>ID</th>
-				<th>S</th>
+				<th>X</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -334,7 +334,7 @@ elseif($aiguilleur=='22'){ // Update Section
 		
 			<td width="80%" class="align_left">⚙️ <a href="gestion/?act=8&f=1&id=<?php echo $c['id_cat']; ?>"><?php echo stripslashes($c['titre']).' ('.stat_section($c['id_cat']); ?>*)</a></td>
 			<td><?php echo $c['id_cat']; ?></td>
-			<td><a href="gestion/?act=8&f=47&id=<?php echo $c['id_cat']; ?>"><img src="images/supprimer.png" border="0"></a></td>
+			<td><a href="gestion/?act=8&f=47&id=<?php echo $c['id_cat']; ?>" onclick="return confirm('Attention, si vous supprimez cette rubrique, les sites répertoriés dedans seront orphelins et ne pourront plus être retrouvé !')"><img src="images/supprimer.png" border="0"></a></td>
 			
 		</tr>
 		

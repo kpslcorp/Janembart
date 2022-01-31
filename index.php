@@ -188,6 +188,11 @@ if (!file_exists($xfiles)) {
 				include 'bs-templates/defaut/contact2.php';
 			}
 			
+			//Search
+			elseif(($_GET['act'])=='search'){
+				include 'bs-templates/defaut/search.php';
+			}
+			
 			// Sitemap
 			elseif(($_GET['act'])=='sitemap'){
 				include 'bs-includes/sitemap.php';
@@ -211,7 +216,7 @@ if (!file_exists($xfiles)) {
 		ob_end_clean();
 
 		// Si on est pas connecté et que ce ne sont pas des pages dynamiques ou sensibles , alors on met en cache :
-		if ((!isset($_SESSION['loggedin'])) AND ($_GET['act'] != "co") AND ($_GET['act'] != "coj") AND ($_GET['act'] != "ad") AND ($_GET['act'] != "aj") AND ($_GET['act'] != "parampro") AND ($_GET['act'] != "recharger") AND ($_GET['act'] != "selfpro") AND ($_GET['act'] != "selfproupdate") AND ($_GET['act'] != "selfproupdated") AND ($_GET['act'] != "accelerer") AND ($_GET['act'] != "merci")) { 
+		if ((!isset($_SESSION['loggedin'])) AND ($_GET['act'] != "co") AND ($_GET['act'] != "coj") AND ($_GET['act'] != "ad") AND ($_GET['act'] != "aj") AND ($_GET['act'] != "parampro") AND ($_GET['act'] != "recharger") AND ($_GET['act'] != "selfpro") AND ($_GET['act'] != "selfproupdate") AND ($_GET['act'] != "selfproupdated") AND ($_GET['act'] != "accelerer") AND ($_GET['act'] != "merci") AND ($_GET['act'] != "search")) { 
 
 			file_put_contents($cache, $page);
 			

@@ -257,6 +257,15 @@ if (isset($_GET['act'])){
 		$head.= '<meta name="robots" content="noindex, nofollow">'."\n";
 		
 	}
+	
+	//Search
+	elseif($_GET['act']=='search') {
+	
+		$head.= '<title>Rechercher un site</title>'."\n";
+		$head.= '<link rel="canonical" href="'.$url_annuaire.'search.html" />'."\n";
+		$head.= '<meta name="robots" content="noindex, nofollow">'."\n";
+		
+	}
  
 }
 else {

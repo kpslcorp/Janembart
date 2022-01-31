@@ -27,8 +27,11 @@ exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
 						<?php } ?>	
 						<?php if ((isset($_SESSION['loggedin'])) AND ($_SESSION['statut'] == "kaioh")){ // Si ADMIN ?>
 							<li>🏚️ <a href="gestion">Zone Admin</a></li>
+							<li>🔍 <a href="<?php echo $url_annuaire; ?>gestion/?act=1&f=2501">Chercher un site</a></li>
 							<li>🚮️ <a href="gestion/?act=cache">Vider le Cache</a></li>
 							<li>❌ <a href="gestion/logout.php">Déconnexion</a></li>
+						<?php } else { ?>
+							<li><a href="search.html">🔍 Chercher un site</a></li>	
 						<?php } ?>
 					</ul>
 				</div>
