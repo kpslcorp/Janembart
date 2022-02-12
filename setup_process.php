@@ -16,7 +16,7 @@ $hp_metadesc = addslashes($_POST["hp_metadesc"]);
 $nb_fiche_section = $_POST["nb_fiche_section"];
 $way_of_the_fight = getcwd();
 $extension = ".html";
-$version="3.1.0";
+$version="3.1.1";
 
 // Detection du protocole (y compris via Flexible SSL de Cloudflare)
 $rooturl ="";
@@ -261,19 +261,19 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				$htaccess2k .="# Exemple 2 : si votre annuaire se trouve à l'adresse $domaini vous devrez avoir pour RewriteBase : /"."\n";
 				$htaccess2k .="RewriteBase $enmadaioh"."\n\n";
 
-				$htaccess2k .="RewriteRule ajouter.html index.php?act=ad [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule ajouter2.html index.php?act=aj [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule contact.html index.php?act=co [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule contact2.html index.php?act=coj [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule parametrer.html index.php?act=parampro [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule recharger.html index.php?act=recharger [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule accelerer.html index.php?act=accelerer [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule merci.html index.php?act=merci [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule boostmywebsite.html index.php?act=selfpro [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule updatemywebsite.html index.php?act=selfproupdate [QSA,L]"."\n";
-				$htaccess2k .="RewriteRule websiteupdated.html index.php?act=selfproupdated [QSA,L]"."\n\n";
-				$htaccess2k .="RewriteRule search.html index.php?act=search [QSA,L]"."\n\n";
-				$htaccess2k .="RewriteRule index-amp.html index.php?amp=1 [QSA,L]"."\n\n";
+				$htaccess2k .="RewriteRule ^ajouter.html index.php?act=ad [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^ajouter2.html index.php?act=aj [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^contact.html index.php?act=co [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^contact2.html index.php?act=coj [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^parametrer.html index.php?act=parampro [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^recharger.html index.php?act=recharger [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^accelerer.html index.php?act=accelerer [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^merci.html index.php?act=merci [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^boostmywebsite.html index.php?act=selfpro [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^updatemywebsite.html index.php?act=selfproupdate [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^websiteupdated.html index.php?act=selfproupdated [QSA,L]"."\n\n";
+				$htaccess2k .="RewriteRule ^search.html index.php?act=search [QSA,L]"."\n\n";
+				$htaccess2k .="RewriteRule ^index-amp.html index.php?amp=1 [QSA,L]"."\n\n";
 				
 				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)-amp$extension index.php?cat=$1&sect=$2&act=$3&id=$4&titre=$5&amp=1 [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^([a-z0-9\-]+)/([a-z0-9\-]+)/([0-9]+).([0-9]+)-([a-z0-9\-]+)$extension index.php?cat=$1&sect=$2&act=$3&id=$4&titre=$5 [QSA,L]"."\n";
