@@ -90,7 +90,7 @@ if (isset($query) && !empty ($query)) {
 			
 			} else {
 				
-				$perman_build = "❌";
+				$perman_build = "<abbr title='Pas de fiche dédiée pour cet enregistrement'>❌</abbr>";
 				
 			}
 			
