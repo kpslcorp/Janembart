@@ -197,7 +197,7 @@ if (isset($query) && !empty ($query)) {
 	
 
 	//Requête de sélection MySQL
-	$list = $bddj->prepare("SELECT * FROM ".TABLE_SITE." WHERE titre LIKE :query OR url LIKE :query");
+	$list = $bddj->prepare("SELECT * FROM ".TABLE_SITE." WHERE titre LIKE :query OR url LIKE :query ORDER by titre");
 	$list->bindValue(':query', '%'.$bind_slug.'%');
 	$list->execute();
 
@@ -207,7 +207,7 @@ if (isset($query) && !empty ($query)) {
 	//On traite les résultats
 	if ($count == 0) {
 		
-		$resultats_title = "Aucun résultat n'a été trouvé";
+		$resultats_title = "❌ Aucun résultat n'a été trouvé";
 		
 		
 	} else {
@@ -215,14 +215,25 @@ if (isset($query) && !empty ($query)) {
 		$result_word = "résultat(s) trouvé(s)";
 		$resultats_title = "$count $result_word : $query";
 
-		$resultats .= "<table id='listisite' style='width:100%;margin-top:25px;'><thead><tr><td>Nom</td><td>Coté Client</td><td>Coté Webmaster</td><td>Site Web</td></tr></thead><tbody>";
+		$resultats .= "<table id='listisite' style='width:100%;margin-top:25px;'><thead><tr><td>☑️</td><td>Nom</td><td>Coté Client</td><td>Coté Webmaster</td><td>Site Web</td></tr></thead><tbody>";
 		
 		while ($data = $list->fetch(PDO::FETCH_OBJ)) {
 			  
 			$id = $data->id_site;
-			$nom = $data->titre;
+			$nom = stripslashes($data->titre);
 			$url = $data->url;
 			$level = $data->type;
+			$valide = $data->valide;
+			
+			if ($valide == 1) {
+				
+				$dejavalide = "✅";
+				
+			} else {
+				
+				$dejavalide = "⌛";
+				
+			}
 			
 			if ($level == 1) {
 			
@@ -235,11 +246,11 @@ if (isset($query) && !empty ($query)) {
 			
 			} else {
 				
-				$perman_build = "❌";
+				$perman_build = "<abbr title='Pas de fiche dédiée pour cet enregistrement'>❌</abbr>";
 				
 			}
 			
-			$resultats .= "<tr><td><strong>$nom</strong></td><td>$perman_build</td><td>⚙️ <a href='gestion/?act=1&id=$id'>Editer</a></td><td>🌐 <a href='$url' target='_blank'>Ouvrir le site web</a></td></tr>";
+			$resultats .= "<tr><td>$dejavalide</td><td><strong>$nom</strong></td><td>$perman_build</td><td>⚙️ <a href='gestion/?act=1&id=$id'>Editer</a></td><td>🌐 <a href='$url' target='_blank'>Ouvrir le site web</a></td></tr>";
 			
 		}
 		

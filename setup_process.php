@@ -16,7 +16,7 @@ $hp_metadesc = addslashes($_POST["hp_metadesc"]);
 $nb_fiche_section = $_POST["nb_fiche_section"];
 $way_of_the_fight = getcwd();
 $extension = ".html";
-$version="3.1.1";
+$version="3.1.2";
 
 // Detection du protocole (y compris via Flexible SSL de Cloudflare)
 $rooturl ="";

@@ -51,7 +51,7 @@ if (isset($query) && !empty ($query)) {
 	
 
 	//Requête de sélection MySQL
-	$list = $bddj->prepare("SELECT * FROM ".TABLE_SITE." WHERE titre LIKE :query OR url LIKE :query");
+	$list = $bddj->prepare("SELECT * FROM ".TABLE_SITE." WHERE (titre LIKE :query OR url LIKE :query) AND valide = 1 ORDER by titre");
 	$list->bindValue(':query', '%'.$bind_slug.'%');
 	$list->execute();
 
@@ -61,7 +61,7 @@ if (isset($query) && !empty ($query)) {
 	//On traite les résultats
 	if ($count == 0) {
 		
-		$resultats_title = "Aucun résultat n'a été trouvé";
+		$resultats_title = "❌ Aucun résultat n'a été trouvé";
 		
 		
 	} else {
@@ -74,7 +74,7 @@ if (isset($query) && !empty ($query)) {
 		while ($data = $list->fetch(PDO::FETCH_OBJ)) {
 			  
 			$id = $data->id_site;
-			$nom = $data->titre;
+			$nom = stripslashes($data->titre);
 			$url = $data->url;
 			$level = $data->type;
 			
