@@ -5,10 +5,10 @@
 		   vous aurez JANEMBAAAART !		      
 
  ____________________________________________________________
-* Version :          3.1.2                                    *
+* Version :          3.1.3                                    *
 * Date de sortie de Bartemis   28 12 2009	              *
 * Date de sortie de Janembart  01 01 2021		      *
-* Dernière Modification :   15 02 2022		              *
+* Dernière Modification :   01 03 2022		              *
 * Ce logiciel est sous licence libre et est distribué sans    *
 * aucune garantie, lire licences.txt pour plus de précisions. *
 * ____________________________________________________________*

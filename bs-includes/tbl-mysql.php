@@ -696,6 +696,7 @@ function mail_site_validation_express ($mail_auteur, $url, $id_du_dernier_enregi
 
 
 function site_register($description_c, $fastpass, $coins) {
+	
 	global $connexion;
 	global $_POST;
 	global $nb_cara_description;
@@ -710,116 +711,303 @@ function site_register($description_c, $fastpass, $coins) {
 	$sect = valid_donnees($_POST["sect"]);
 	$mail_auteur = valid_donnees($_POST["mail_auteur"]);
 	
-	if ($fastpass == "yes") {$description = valid_donnees_light($_POST["description"]);} else {$description = valid_donnees($_POST["description"]);}
+	if ($fastpass == "yes") {
+		
+		$description = valid_donnees_light($_POST["description"]);
+		
+	} else {
+		
+		$description = valid_donnees($_POST["description"]);
+		
+	}
 	
 	$dat = date("Y-m-d H:i:s");
 	
 	// Construction des messages de retour
 	$msg_erreur = "<p>Grosse erreur, un ou plusieurs des champs ne sont pas bon :</p><ul>";
+	
 	if ($fastpass == "yes")	{
+		
 		$msg_ok = "<p class='align_center'>🔥🔥🔥 LIKE A BO$$ 🔥🔥🔥 : Site validé automatiquement‍</p><p class='align_center'>Allez, on enchaine ?!</p><p class='align_center'><a href='ajouter.html'>👑 Ajouter un autre site</a></p>";
-	}
-	else {
+		
+	} else {
+		
 		$msg_ok = "<p>✅ Site proposé avec succès ! Un modérateur le validera le plus vite possible. Nous vous remercions d'avoir choisi notre annuaire et vous souhaitons un agréable surf 🏄‍</p>";
-		if ($forcebacklink != "oui") {$msg_ok .= "<p><span style='color:red;font-weight:bold;background:yellow;'>💡 Augmentez vos chances de voir votre site validé en insérant un lien retour sur votre site !</span></p>";}
+		
+		if ($forcebacklink != "oui") {
+			
+			$msg_ok .= "<p><span style='color:red;font-weight:bold;background:yellow;'>💡 Augmentez vos chances de voir votre site validé sur notre annuaire en insérant un lien retour sur votre site !</span></p>";
+			
+		}
+		
 	}
+	
 	$message_retour = "<p class='recommencer'>J'ai bien lu les consignes ci-dessus et je corrige mes erreurs : <a href='javascript:history.go(-1)'>Retourner sur le formulaire</a></p>";
+	
 	$message = $msg_erreur;
 	
-	if ($_SESSION['statut'] == "kaioh")	{$coins=1;} // Si on est admin, credit illimité !
-	if ($coins<1)
-		{$message .= '<li style="color:red;">Vous n\'avez plus de crédits pro. Veuillez <a href="contact.html">nous contacter</a> pour recharger des crédits et conserver vos avantages partenaires, ou vous <a href="gestion/logout.php">déconnecter</a> pour proposer votre site en tant qu\'invité sans tous les avantages associés au compte pro.</li>';$e=1;} 
-	if (empty($titre))
-		{$message .= '<li style="color:red;">Veuillez donner un titre à votre site</li>';$e=1;} else {$_SESSION['pro_titre'] = $titre;}
-	if (empty($description))
-		{$message .= '<li style="color:red;">Veuillez saisir une description</li>';$e=1;} else {$_SESSION['pro_description'] = $description;}
+	if ($_SESSION['statut'] == "kaioh")	{  // Si on est admin, credit illimité !
+		
+		$coins = 1;
+		
+	}
 	
-	if ($_SESSION['statut'] != "kaioh")	{ // Si on est admin, pas de restrictions sur les descriptions !
-		if (strlen($description)<$nb_cara_description)
-			{$message .= '<li style="color:red;">Votre description est trop courte.</li>';$e=1;} else {$_SESSION['pro_description'] = $description;}
-		if (strlen($description)>50000)
-			{$message .= '<li style="color:red;">Votre description est trop longue</li>';$e=1;} else {$_SESSION['pro_description'] = $description;}
+	if ($coins < 1){
+		$message .= '<li style="color:red;">Vous n\'avez plus de crédits pro. Veuillez <a href="contact.html">nous contacter</a> pour recharger des crédits et conserver vos avantages partenaires, ou vous <a href="gestion/logout.php">déconnecter</a> pour proposer votre site en tant qu\'invité sans tous les avantages associés au compte pro.</li>';
+		$e=1;
+	} 
+	
+	if (empty($titre)) {
+		
+		$message .= '<li style="color:red;">Veuillez donner un titre à votre site</li>';
+		$e=1;
+		
+	} else {
+		
+		$_SESSION['pro_titre'] = $titre;
+		
+	}
+	
+	if (empty($description)){
+		
+		$message .= '<li style="color:red;">Veuillez saisir une description</li>';
+		$e=1;
+		
+	} else {
+		
+		$_SESSION['pro_description'] = $description;
+		
+	}
+	
+	if ($_SESSION['statut'] != "kaioh")	{
+
+		// Si on est admin, pas de restrictions sur les descriptions !
+		
+		if (strlen($description)<$nb_cara_description){
+			
+			$message .= '<li style="color:red;">Votre description est trop courte.</li>';
+			$e=1;
+			
+		} else {
+			
+			$_SESSION['pro_description'] = $description;
+			
+		}
+		
+		if (strlen($description)>50000)	{
+			
+			$message .= '<li style="color:red;">Votre description est trop longue</li>';
+			$e=1;
+			
+		} else {
+			
+			$_SESSION['pro_description'] = $description;
+			
+		}
 		
 		if ($_SESSION['statut'] == "pr0") {
+			
 			if (scooter_form_malicious_scan_light($description) == true){
-					$message .= '<li style="color:red;">Votre description contient des caractères interdits</li>';$e=1;
-				} else {
+				
+					$message .= '<li style="color:red;">Votre description contient des caractères interdits</li>';
+					$e=1;
+					
+			} else {
+					
 					$_SESSION['pro_description'] = $description;
-				}			
+					
+			}
+				
 		} else {
+			
 			if (scooter_form_malicious_scan($description) == true){
-				$message .= '<li style="color:red;">Votre description contient des caractères interdits</li>';$e=1;session_destroy ();
-				} else {
+				
+				$message .= '<li style="color:red;">Votre description contient des caractères interdits</li>';
+				$e=1;
+				session_destroy ();
+				
+			} else {
+					
 					$_SESSION['pro_description'] = $description;
-				}			
+					
+			}			
 		}
 	}
-	if (empty($url))
-		{$message .= '<li style="color:red;">L\'url de votre site est incorrecte</li>';$e=1;} else {$_SESSION['pro_url'] = $url;}
+	
+	if (empty($url)){
+		
+		$message .= '<li style="color:red;">L\'url de votre site est incorrecte</li>';
+		$e=1;
+		
+	} else {
+		
+		$_SESSION['pro_url'] = $url;
+		
+	}
+	
 	if (!empty($url_rss)) {
-		if ($url_rss == $url)
-		{$message .= '<li style="color:red;">L\'url de votre flux RSS est incorrecte</li>';$e=1;} else {$_SESSION['pro_url_rss'] = $url_rss;}
+		
+		if ($url_rss == $url){
+			
+			$message .= '<li style="color:red;">L\'url de votre flux RSS est incorrecte</li>';
+			$e=1;
+			
+		} else {
+			
+			$_SESSION['pro_url_rss'] = $url_rss;
+			
+		}
 	}
 	
 	$nomdedomainedelannuaire = $_SERVER['SERVER_NAME'];
-	if (strpos($url_retour, $nomdedomainedelannuaire) !== false) 
-		{$message .= '<li style="color:red;">Merci de mettre un lien retour valide</li>';$e=1;} else {$_SESSION['pro_url_retour'] = $url_retour;}
+	
+	if (strpos($url_retour, $nomdedomainedelannuaire) !== false) {
+		
+		$message .= '<li style="color:red;">Merci de mettre un lien retour valide</li>';
+		$e=1;
+		
+	} else {
+		
+		$_SESSION['pro_url_retour'] = $url_retour;
+		
+	}
 	
 	if ($fastpass != "yes") { // Si pas de FastPass, activation eventuelle du lien retour obligatoire
+		
 		if ($forcebacklink == "oui") { // Si lien retour obligatoire
-			if (empty($url_retour)) // Si vide ==> Erreur
-			{$message .= '<li style="color:red;">Veuillez nous indiquer la page sur laquelle se trouve le lien retour.</li>';$e=1;}
+		
+			if (empty($url_retour)){ // Si vide ==> Erreur
+			
+				$message .= '<li style="color:red;">Veuillez nous indiquer la page sur laquelle se trouve le lien retour.</li>';
+				$e=1;
+			
+			}
+			
 		}
+		
 	}
-	if (empty($mail_auteur))
-		{$message .= '<li style="color:red;">Veuillez saisir votre adresse email</li>';$e=1;} else {$_SESSION['pro_mail_auteur'] = $mail_auteur;}
-	if (valid_mail($mail_auteur) == 1) 
-		{$message .= '<li style="color:red;">Votre mail n\'est pas correcte ou l\'hébergeur de votre boîte mail n\'est pas autorisé</li>';$e=1;} else {$_SESSION['pro_mail_auteur'] = $mail_auteur;}
-	if (empty($sect))
-		{$message .= '<li style="color:red;">Veuillez choisir une catégorie.</li>';$e=1;}
 	
-	if (!empty($ancre)) {$_SESSION['ancre'] = $ancre;}
+	if (empty($mail_auteur)){
+		
+		$message .= '<li style="color:red;">Veuillez saisir votre adresse email</li>';
+		$e=1;
+		
+	} else {
+		
+		$_SESSION['pro_mail_auteur'] = $mail_auteur;
+		
+	}
+	
+	if (valid_mail($mail_auteur) == 1) {
+		
+		$message .= '<li style="color:red;">Votre mail n\'est pas correcte ou l\'hébergeur de votre boîte mail n\'est pas autorisé</li>';
+		$e=1;
+		
+	} else {
+		
+		$_SESSION['pro_mail_auteur'] = $mail_auteur;
+		
+	}
+	
+	if (empty($sect)){
+		
+		$message .= '<li style="color:red;">Veuillez choisir une catégorie.</li>';
+		$e=1;
+		
+	}
+	
+	if (!empty($ancre)) {
+		
+		$_SESSION['ancre'] = $ancre;
+		
+	}
 
 	$compare_url = url_www($url);
+	
 	$sql = mysqli_num_rows(mysqli_query($connexion,"SELECT * FROM ".TABLE_SITE." WHERE url LIKE '%$compare_url%' LIMIT 1"));
-	if ($sql==1) 
-		{$message .= '<li style="color:red;">L\'url de votre site est déjà présente dans la base de donnée de l\'annuaire</li>';$e=1;}
+	
+	if ($sql==1) {
+		
+		$message .= '<li style="color:red;">L\'url de votre site est déjà présente dans la base de donnée de l\'annuaire</li>';
+		$e=1;
+		
+	}
 
 	if ($fastpass != "yes") { // Si pas de FastPass, on check le CAPTCHA, sinon on fait confiance
-		if( $_SESSION['kap_tcha_id'] == $_POST['security_code'] && !empty($_SESSION['kap_tcha_id'] ) ) {} 
-		else {$message .= '<li style="color:red;">Le code de sécurité est incorrect. Seriez vous un Bot ?</li>'; $e=1;}
+		
+		
+		if( $_SESSION['kap_tcha_id'] == $_POST['security_code'] && !empty($_SESSION['kap_tcha_id'] ) ) {
+			
+		} else {
+			
+			$message .= '<li style="color:red;">Le code de sécurité est incorrect. Seriez vous un Bot ?</li>';
+			$e=1;
+		}
+		
 	}
 	
 	if ($e>0) {
+		
 		$message .= "</ul>";
+		
 	}
 	
 	if (strlen($message) > strlen($msg_erreur)) {
+		
+		$message .= $message_retour;
+		
 		echo $message;
-		echo $message_retour;
+		return "kwak";
+		
 	} else {
 		
-	
-		//Choix si oui ou non le site aura une fiche en fonction du chiffre $description_c
-		if (strlen($description) > intval($description_c)) {
+		
+		
+		if (strlen($description) > intval($description_c)) { //Choix si oui ou non le site aura une fiche en fonction du chiffre $description_c
+			
 			$type = 1;
 			$description = str_replace(CHR(10), "<br />", $description); 
+			
 		} else { 
+		
 			$type = 2; 
+			
 		}
 		
 		if ($fastpass == "yes") { // Multiquery
-			if ($_SESSION['statut'] == "kaioh")	{$juice=150;} else {$juice=70;}
+		
+			if ($_SESSION['statut'] == "kaioh")	{
+				
+				$juice=150;
+				
+			} else {
+				
+				$juice=70;
+				
+			}
+			
 			$newcreditcoins = $coins - 1;
+			
 			$sql = "INSERT INTO ".TABLE_SITE." VALUES ('', '".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '1', '2', '".$juice."', '".$dat."', '".$dat."'); UPDATE ".TABLE_USER." SET credit='$newcreditcoins' WHERE mail = '$mail_auteur';";
+			
 			$res = mysqli_multi_query($connexion, $sql);
+			
 			vider_cache('cache');
 		
 		} else { // Query Simple
 		
-			if (!empty($url_retour)) {$juice=20;} else {$juice=10;}
+			if (!empty($url_retour)) {
+				
+				$juice=20;
+				
+			} else {
+				
+				$juice=10;
+				
+			}
 		
 			$sql = "INSERT INTO ".TABLE_SITE." VALUES ('', '".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '2', '2', '".$juice."', '".$dat."','NULL');";
+			
 			$res = mysqli_query($connexion,$sql);
 		
 		}
@@ -833,13 +1021,14 @@ function site_register($description_c, $fastpass, $coins) {
 				mail_site_en_attente($mail_auteur, $url, $id_du_dernier_enregistrement);
 				session_destroy ();
 			
-			}
-			else { // Si Fastpass on détruit que les champs du site pour ne pas déconnecter le PRO
+			} else {
+				// Si Fastpass on détruit que les champs du site pour ne pas déconnecter le PRO
 				
 				if ($_SESSION['statut'] != "kaioh") { // Si compte PRO, On prévient l'admin quand nouvelle soumission
 					pop2modo_pro($id_du_dernier_enregistrement, $titre);
 					mail_site_validation_express ($mail_auteur, $url, $id_du_dernier_enregistrement, $titre);
 				} 
+				
 				unset($_SESSION['pro_titre']);
 				unset($_SESSION['pro_description']);
 				unset($_SESSION['pro_url']);
@@ -848,23 +1037,36 @@ function site_register($description_c, $fastpass, $coins) {
 			}
 			
 			if ($_SESSION['statut'] != "kaioh") { // Si on est pas admin
+			
 				// Module d'envoi du message a l'admin
-				if ($msg2modo == 'all') {pop2modo();} // Systematique
-				elseif ($msg2modo == 'spoted') { // Avec lien retour
-					if ($url_retour != '') {pop2modo();}
+				if ($msg2modo == 'all') {// Systematique
+					
+					pop2modo();
+					
+				} elseif ($msg2modo == 'spoted') { // Avec lien retour
+					
+					if ($url_retour != '') {
+						
+						pop2modo();
+						
 					}
-				else {} // Non
+					
+				}
+				
 			}
 			
-			return $msg_ok;
+			echo $msg_ok;
+			return "ok";
 	
 		} else {
+			
 			//echo mysqli_error($connexion);
-			echo"<p>OUCHHH 😭 Il y a eu un petit problème lors de l'enregistrement MYSQL</p>";
+			
+			echo "<p>OUCHHH 😭 Il y a eu un petit problème lors de l'enregistrement MYSQL</p>";
+			return "kwak";
+			
 		}
 	
 	}
 
 }
-
-?>

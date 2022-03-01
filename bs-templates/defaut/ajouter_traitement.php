@@ -27,7 +27,7 @@ $ajouter_traitement_hilde = "oui";
 	if (isset($_SESSION['loggedin'])){ 
 	
 		$fastpass = "yes";
-		echo site_register(1,$fastpass,$coins); // 175 = Nombre de caractères avant que le site ait une fiche dédiée
+		$result_site_register = site_register(1,$fastpass,$coins); // 175 = Nombre de caractères avant que le site ait une fiche dédiée
 		$coins = $coins-1;
 		
 	}
@@ -35,7 +35,7 @@ $ajouter_traitement_hilde = "oui";
 	else {
 		
 		$fastpass = "no";
-		echo site_register(175, $fastpass,'999'); // 175 = Nombre de caractères avant que le site ait une fiche dédiée
+		$result_site_register = site_register(175, $fastpass,'999'); // 175 = Nombre de caractères avant que le site ait une fiche dédiée
 		
 	}
 	
@@ -84,7 +84,7 @@ $ajouter_traitement_hilde = "oui";
 		
 		<?php 
 		
-		if ($module_de_paiement == TRUE) { 
+		if (($module_de_paiement == TRUE) AND ($result_site_register != "kwak")){ 
 		$refpaypal = valid_donnees($_POST["url"]); ?>
 		
 		<h2>🚀 Validation EXPRESS !</h2>
