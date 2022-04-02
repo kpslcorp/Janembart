@@ -17,10 +17,12 @@ exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
 				<div class="widget_colonne">
 					<ul>
 						<li><a href="ajouter.html">🆕 Ajouter un site</a></li>	
+						<li><a href="nouveautes.html">📅 Nouveautés</a></li>
 						<?php if ((isset($_SESSION['loggedin'])) AND ($_SESSION['statut'] == "pr0")){ // Si Compte PRO (Client)	?>
 							<?php if ($coins > 0) {$colorcoin = "green";} else {$colorcoin = "red";} ?>
 							<li>💰 <span style="color:<?php echo $colorcoin; ?>;"><?php echo $coins; ?></span> crédit(s) restante(s)</li>
 							<li>⚙️ <a href="parametrer.html">Paramétrer mes sites</a></li>
+							<li>🔍 <a href="search.html"> Chercher un site</a></li>	
 							<li>💳 <a href="recharger.html">Acheter des crédits</a></li>
 							<li>📧 <a href="contact.html">Contact</a></li>
 							<li>❌ <a href="acces-pro/logout.php">Déconnexion</a></li>

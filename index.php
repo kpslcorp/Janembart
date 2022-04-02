@@ -193,6 +193,11 @@ if (!file_exists($xfiles)) {
 				include 'bs-templates/defaut/search.php';
 			}
 			
+			//Nouveautes
+			elseif(($_GET['act'])=='last'){
+				include 'bs-templates/defaut/l4st.php';
+			}
+			
 			// Sitemap
 			elseif(($_GET['act'])=='sitemap'){
 				include 'bs-includes/sitemap.php';

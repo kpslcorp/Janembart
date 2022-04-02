@@ -266,6 +266,14 @@ if (isset($_GET['act'])){
 		$head.= '<meta name="robots" content="noindex, nofollow">'."\n";
 		
 	}
+	
+	//Nouveautes
+	elseif($_GET['act']=='last') {
+	
+		$head.= '<title>Liste des derniers sites répertoriés ici</title>'."\n";
+		$head.= '<link rel="canonical" href="'.$url_annuaire.'nouveautes.html" />'."\n";
+		if ($disable_amp != 'oui') { $head.= '<link rel="amphtml" href="'.$url_annuaire.'nouveautes.html?amp=1" />'."\n"; }
+	}
  
 }
 else {
