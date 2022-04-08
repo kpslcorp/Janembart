@@ -28,7 +28,7 @@ if($aiguilleur=='1'){ // Formulaire Catégorie
 	
 		<p>Nom de la catégorie ⬇️</p>
 				
-		<p><input <?php if (isset($cool_cat_titre)) {echo "value='$cool_cat_titre'";} ?> type="text" name="titre" class="soumettre_input" placeholder="Titre de la catégorie" /></p>
+		<p><input <?php if (isset($cool_cat_titre)) {echo 'value="'.$cool_cat_titre.'"';} ?> type="text" name="titre" class="soumettre_input" placeholder="Titre de la catégorie" /></p>
 		
 		<p>Description de la catégorie ⬇️</p>
 
@@ -195,7 +195,7 @@ elseif($aiguilleur=='2'){ // Formulaire Section
 		</select>
 	</p>
 	<p>Nom de la section (sous-catégorie) ⬇️</p>
-	<p><input <?php if (isset($cool_se_titre)) {echo "value='$cool_se_titre'";} ?> type="text" name="titre" class="soumettre_input" placeholder="Titre de la section" /></p>
+	<p><input <?php if (isset($cool_se_titre)) {echo 'value="'.$cool_se_titre.'"';} ?> type="text" name="titre" class="soumettre_input" placeholder="Titre de la section" /></p>
 	
 	<p>Présentation de la section ⬇️</p>
 	<p><textarea class="soumettre_textarea" name="description" placeholder="Présentation de la section" id="mytextarea"><?php if (isset($cool_se_contenu)) {echo $cool_se_contenu;} ?></textarea></p>

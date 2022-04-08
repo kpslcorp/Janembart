@@ -29,7 +29,7 @@ if($aiguilleur=='1') {
 	
 		<tr>
 			<td colspan="2">
-				<input <?php if (isset($cool_titre)) {echo "value='$cool_titre'";} ?> type="text" name="titre" style="width : 400px" class="soumettre_input" placeholder="Titre :"/>
+				<input <?php if (isset($cool_titre)) {echo 'value="'.$cool_titre.'"';} ?> type="text" name="titre" style="width : 400px" class="soumettre_input" placeholder="Titre :"/>
 			</td>
 		</tr>
 		<tr>
