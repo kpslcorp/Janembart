@@ -214,7 +214,7 @@ elseif($aiguilleur=='31'){
 else {
 
 	$page_index = '
-	<p>🤑 Vous souhaitez monétiser votre annuaire ?!</p><ol><li>Proposez des comptes pros payants permettant la validation automatique,</li><li>Invitez les intéressés à vous contacter pour en bénéficier puis à s\'inscrire via <a href="gestion/creation-pro.php">cette page</a></li><li>Attribuez ci-dessous des unités à ces derniers sachant que 1 unité = 1 site validé.</li></ol><p>💥 A vous de définir votre tarification, vos moyens de paiement (Paypal/Stripe ou autre), votre facturation et vos avantages supplémentaires pour les membres...</p><p>💡 PS : Une fois le compte pro créé, chaque bénéficiaire est invité à se connecter via cette page <a href="gestion/login.php">cette page</a>. Un encart supplémentaire lui sera rajouté en haut de sidebar.</p>
+	<p>🤑 Vous souhaitez monétiser votre annuaire ?!</p><ol><li>Proposez des comptes pros payants permettant la validation automatique,</li><li>Invitez les intéressés à vous contacter pour en bénéficier puis à s\'inscrire via <a href="acces-pro/creation-pro.php" target="_blank">cette page</a></li><li>Attribuez ci-dessous des unités à ces derniers sachant que 1 unité = 1 site validé.</li></ol><p>💥 A vous de définir votre tarification, vos moyens de paiement (Paypal/Stripe ou autre), votre facturation et vos avantages supplémentaires pour les membres...</p><p>💡 PS : Une fois le compte pro créé, chaque bénéficiaire est invité à se connecter via cette page <a href="acces-pro/login.php" target="_blank">cette page</a>. Un encart supplémentaire lui sera rajouté en haut de sidebar.</p>
 	
 	<div>
 	
