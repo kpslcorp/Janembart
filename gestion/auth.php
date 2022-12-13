@@ -62,17 +62,7 @@ if ($resultatquest > 0) // Si l'email existe on vérifie d'abord si le compte es
 				
 				$smarttoken = bin2hex(random_bytes(50));
 				
-				$arr_cookie_options = array (
-					'expires' => time()+3600,  // 60 minutes
-					'path' => '/',
-					//'domain' => '.example.com', // leading dot for compatibility or use subdomain
-					//'secure' => false,     // or false
-					'httponly' => true,    // or false
-				   // 'samesite' => 'Lax' // None || Lax  || Strict
-					);
-					
-				
-				setcookie('admink',$smarttoken,$arr_cookie_options) ;
+				setcookie('admink',$smarttoken,time()+3600,'/') ;
 
 				$_SESSION['admink'] = $smarttoken;
 				$_SESSION['loggedin'] = TRUE;
