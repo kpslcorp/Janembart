@@ -1,5 +1,32 @@
 <?php
 $aiguilleur = isset($_GET['f']) ? $_GET['f'] : NULL;
+
+$io_dir_pics_page = BATBASE."/pxpage";
+
+if (!is_dir($io_dir_pics_page)) {
+	mkdir($io_dir_pics_page, 0777, true);
+}
+
+// Compress image
+function compressImage($source, $destination, $quality) {
+
+  $info = getimagesize($source);
+
+  if ($info['mime'] == 'image/jpeg') 
+    $image = imagecreatefromjpeg($source);
+
+  elseif ($info['mime'] == 'image/gif') 
+    $image = imagecreatefromgif($source);
+
+  elseif ($info['mime'] == 'image/png') 
+    $image = imagecreatefrompng($source);
+
+  imagejpeg($image, $destination, $quality);
+
+}
+
+$max_size = 100000; // Image Max Size
+
 if($aiguilleur=='1') { 
 
 	$cool_id = isset($_GET['id']) ? $_GET['id'] : NULL;
@@ -8,13 +35,13 @@ if($aiguilleur=='1') {
 		$p = rcp_page(intval($cool_id), "");
 		
 	?>
-	<form method="POST" action="gestion/?act=9&f=12">
+	<form method="POST" action="gestion/?act=9&f=12" enctype="multipart/form-data">
 	
 	<?php 
 	
 	} else { ?>
 	
-	<form method="POST" action="gestion/?act=9&f=11"> 
+	<form method="POST" action="gestion/?act=9&f=11" enctype="multipart/form-data"> 
 	
 	<?php }
 
@@ -42,6 +69,29 @@ if($aiguilleur=='1') {
 				<span class="conseil">Les sauts de ligne seront automatiquement convertit. Il est nécessaire d'utiliser les balises html si vous souhaitez faire un lien ou mettre en évidence un morceau de votre texte.</span>
 			</td>
 		</tr>
+		
+		<tr>
+			<td colspan="2">
+			<h3>Une image ?</h3>
+			<?php
+		
+			if (isset($cool_id)){
+		
+				$pics_name_io = base64_encode($cool_titre);
+				$path_io_pix_2_check  = BATBASE."/pxpage/$pics_name_io.jpg";
+				$url_of_io_pics = $url_annuaire.'pxpage/'.$pics_name_io.".jpg";
+				
+				if (file_exists($path_io_pix_2_check)) {
+					
+					echo "<img src='$url_of_io_pics' width='200' height='auto'><br />URL de l'image associé à la page : <br /><u>$url_of_io_pics</u><br />";
+					
+				} 
+			}
+			
+			?>
+			<p><input type="file" name="image_upload"></p>
+			</td>
+		</tr>
 		<tr>
 			<td colspan="2" style="text-align:center">
 				<input value="<?php echo intval($cool_id); ?>" name="id" type="hidden" style="margin-top: 3px;" />
@@ -57,8 +107,7 @@ if($aiguilleur=='1') {
 <?php
 }
 
-
-elseif($aiguilleur=='11'){
+elseif($aiguilleur=='11'){ // Enregistrement d'une nouvelle page
 	
 	$msg_erreur = "Grosse erreur, un ou plusieurs des champs doivent être vide :<br/><br/>";
 	$message_retour = '<br /><br /><p class="recommencer"><a href="javascript:history.go(-1)">Retourner sur le formulaire</a></p>';
@@ -69,25 +118,55 @@ elseif($aiguilleur=='11'){
 	$message .= '<font color="red">- La page est vide ?</font><br/>';
 
 if (strlen($message) > strlen($msg_erreur)) {
+	
 	echo $message;
 	echo $message_retour;	
+	
 } else {
+	
 	foreach($_POST as $index => $valeur) {$$index = mysqli_real_escape_string($connexion,trim($valeur));}
 
 	$description = str_replace("\n", "<br />", $description);
 	
-	$sql = "INSERT INTO ".TABLE_PAGE." VALUES ( '',  '".$titre."',  '".$contenu."',  '".$compteur."')";
+	$sql = 'INSERT INTO '.TABLE_PAGE.' (titre,contenu,compteur) VALUES ( "'.$titre.'",  "'.$contenu.'",  "1")';
 	
 	$res = mysqli_query($connexion,$sql);
-		  
+			
+	$pics_name_io = base64_encode(stripslashes($titre));
+	$saveto = BATBASE."/pxpage/$pics_name_io.jpg";
+				
 		if ($res) {
+
+			if (($_FILES['image_upload']['name'][0] != "") AND ($_FILES['image_upload']['error'] == 0)) { // Si une image a été uploadée
+
+				$whitelist_type = array('image/jpeg', 'image/jpg', 'image/gif', 'image/png', 'image/webp');
+				if (!in_array($_FILES['image_upload']['type'], $whitelist_type)) {$msg .= "La pièce jointe n'est pas une image"; }
+									
+				if ($_FILES['image_upload']['size'] > $max_size) { // Si supérieur à 100Mo on compresse
+					
+					compressImage($_FILES['image_upload']['tmp_name'], $saveto, 20);
+				
+				} else {
+						
+					move_uploaded_file($_FILES['image_upload']['tmp_name'], $saveto);
+					
+				}
+					
+					
+			}
+
 			echo '<p style="padding;10px;text-align:center">Page ajouté avec succès.</p>';
 			echo '<p style="padding;10px;text-align:center"><a href="gestion/?act=9">Retourner gérer les pages.</a></p>';
+			
 		} else {
-			echo mysqli_error();
+			
+			echo mysqli_error($connexion);
+			
 		}
+		
 	}
 }
+
 elseif($aiguilleur=='12'){
 
 		foreach($_POST as $index => $valeur) {
@@ -97,8 +176,34 @@ elseif($aiguilleur=='12'){
 		$sql = "UPDATE ".TABLE_PAGE." SET titre='".$titre."', contenu='".$contenu."' WHERE id_page = '".$id."'";
 		  
 		$res = mysqli_query($connexion,$sql);
+		
+		$pics_name_io = base64_encode(stripslashes($titre));
+		$saveto = BATBASE."/pxpage/$pics_name_io.jpg";
+		
 		  
 		  if ($res) {
+			  
+
+				if (($_FILES['image_upload']['name'][0] != "") AND ($_FILES['image_upload']['error'] == 0)) { // Si une image a été uploadée
+			
+
+					$whitelist_type = array('image/jpeg', 'image/jpg', 'image/gif', 'image/png', 'image/webp');
+					if (!in_array($_FILES['image_upload']['type'], $whitelist_type)) {$msg .= "La pièce jointe n'est pas une image"; }
+										
+					
+					if ($_FILES['image_upload']['size'] > $max_size) { // Si supérieur à 100Mo on compresse
+						
+						compressImage($_FILES['image_upload']['tmp_name'], $saveto, 20);
+					
+					} else {
+							
+						move_uploaded_file($_FILES['image_upload']['tmp_name'], $saveto);
+						
+					}
+					
+				}
+					
+			
 		  ?>
 			<p class="align_center">🔄 Page mise à jour avec succès.</p>
 			<p class="align_center"><a href="gestion/?act=9">Retourner gérer les pages.</a></p>
@@ -106,7 +211,9 @@ elseif($aiguilleur=='12'){
 		  }
 		  
 		  else {
-			echo mysqli_error();
+			  
+			echo mysqli_error($connexion);
+			
 		  }
 }
 elseif($aiguilleur=='2'){
@@ -136,7 +243,7 @@ elseif($aiguilleur=='21'){
 <?php
 
 	} else {
-		echo mysqli_error();
+		echo mysqli_error($connexion);
 	}
 }
 

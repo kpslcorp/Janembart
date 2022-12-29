@@ -85,9 +85,9 @@ elseif($aiguilleur=='11'){ // Création Catégorie
 		if ($donnees) 
 		$id_cat = $donnees['id_cat'];
 				
-		$description = mysqli_real_escape_string($connexion,'Retrouvez dans cette rubrique tous les sites de la catégorie '.$titre.' qui n\'ont pas trouvés leur place dans les autres sections.');
+		$description = "Retrouvez dans cette rubrique tous les sites de la catégorie $titre qui n'ont pas trouvés leur place dans les autres sections.";
 		
-			$sql = "INSERT INTO ".TABLE_SECT." VALUES ('', 'Autres', '".$id_cat."',  '".$description."',  '2')";
+			$sql = 'INSERT INTO '.TABLE_SECT.' (titre,id_cat,description,compteur) VALUES ( "Autres", "'.$id_cat.'", "'.$description.'","2")';
 		  
 			$res = mysqli_query($connexion,$sql);
 		
@@ -232,7 +232,7 @@ if (strlen($message) > strlen($msg_erreur)) {
 
 	$description = str_replace("\n", "<br />", $description);
 	
-	$sql = "INSERT INTO ".TABLE_SECT." VALUES ('', '".$titre."', '".$id_cat."', '".$description."','2')";
+	$sql = 'INSERT INTO '.TABLE_SECT.' (titre,id_cat,description,compteur) VALUES ("'.$titre.'", "'.$id_cat.'", "'.$description.'","2")';
 	
 	$res = mysqli_query($connexion,$sql);
 		  

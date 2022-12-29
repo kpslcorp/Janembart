@@ -16,7 +16,8 @@ $hp_metadesc = addslashes($_POST["hp_metadesc"]);
 $nb_fiche_section = $_POST["nb_fiche_section"];
 $way_of_the_fight = getcwd();
 $extension = ".html";
-$version="3.1.4";
+$version="3.1.7";
+$datdujour = date("Y-m-d H:i:s");
 
 // Detection du protocole (y compris via Flexible SSL de Cloudflare)
 $rooturl ="";
@@ -125,7 +126,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 		  `valide` int(11) unsigned NOT NULL default '0',
 		  `compteur` int(11) unsigned NOT NULL default '2',
 		  `note` int(11) unsigned NOT NULL default '2',
-		  `dat` datetime NOT NULL default '0000-00-00 00:00:00',
+		  `dat` datetime NOT NULL default '1000-01-01 00:00:00',
 		  `date2validation` datetime NULL,
 		PRIMARY KEY ( `id_site` )) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -167,14 +168,14 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 		  `password` varchar(255) CHARACTER SET utf8 NOT NULL,
 		  `statut` varchar(30) CHARACTER SET utf8 NOT NULL,
 		  `credit` int(11) NOT NULL,
-		  `creation` datetime NOT NULL default '0000-00-00 00:00:00',
+		  `creation` datetime NOT NULL default '1000-01-01 00:00:00',
 		  `valide` int(11) NOT NULL default 0,
-		  `tekken3` varchar(255) CHARACTER SET utf8 NOT NULL,
+		  `tekken3` varchar(255) CHARACTER SET utf8 NOT NULL default '',
 		UNIQUE KEY mail (`mail`),
 		PRIMARY KEY ( `id_user` )) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 		ALTER TABLE `$prefixe_u` AUTO_INCREMENT=2;
 
-		INSERT INTO $prefixe_u(mail,password,statut,credit,valide) VALUES ('$mail', '$password', 'kaioh', '666','1');
+		INSERT INTO $prefixe_u(mail,password,statut,credit,creation,valide) VALUES ('$mail', '$password', 'kaioh', '666','$datdujour','1');
 		
 		CREATE TABLE IF NOT EXISTS `$prefixe_relance` (
 			`id_ticket` int(11) unsigned NOT NULL auto_increment,
@@ -298,7 +299,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 			unlink($autodestruction);
 			unlink($autodestruction2);
 
-		}
+			}
 
 			
 		} else {

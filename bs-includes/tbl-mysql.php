@@ -988,7 +988,7 @@ function site_register($description_c, $fastpass, $coins) {
 			
 			$newcreditcoins = $coins - 1;
 			
-			$sql = "INSERT INTO ".TABLE_SITE." VALUES ('', '".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '1', '2', '".$juice."', '".$dat."', '".$dat."'); UPDATE ".TABLE_USER." SET credit='$newcreditcoins' WHERE mail = '$mail_auteur';";
+			$sql = "INSERT INTO ".TABLE_SITE." (sect,type,titre,url,ancre,url_retour,url_rss,description,mail_auteur,valide,compteur,note,dat,date2validation) VALUES ('".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '1', '2', '".$juice."', '".$dat."', '".$dat."'); UPDATE ".TABLE_USER." SET credit='$newcreditcoins' WHERE mail = '$mail_auteur';";
 			
 			$res = mysqli_multi_query($connexion, $sql);
 			
@@ -1006,7 +1006,7 @@ function site_register($description_c, $fastpass, $coins) {
 				
 			}
 		
-			$sql = "INSERT INTO ".TABLE_SITE." VALUES ('', '".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '2', '2', '".$juice."', '".$dat."','NULL');";
+			$sql = "INSERT INTO ".TABLE_SITE." (sect,type,titre,url,ancre,url_retour,url_rss,description,mail_auteur,valide,compteur,note,dat,date2validation) VALUES ('".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '2', '2', '".$juice."', '".$dat."','1000-01-01 00:00:00');";
 			
 			$res = mysqli_query($connexion,$sql);
 		
