@@ -77,7 +77,7 @@ if($aiguilleur=='1') {
 		
 			if (isset($cool_id)){
 		
-				$pics_name_io = base64_encode($cool_titre);
+				$pics_name_io = stripslashes(base64_encode($cool_titre));
 				$path_io_pix_2_check  = BATBASE."/pxpage/$pics_name_io.jpg";
 				$url_of_io_pics = $url_annuaire.'pxpage/'.$pics_name_io.".jpg";
 				
