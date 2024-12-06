@@ -79,7 +79,6 @@ exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
 		<link rel="stylesheet" href="<?php echo $url_annuaire; ?>bs-templates/defaut/style.css" />
 		
 		<?php if (!empty($google_analytics)) { ?>
-			<!-- Global site tag (gtag.js) - Google Analytics -->
 			<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $google_analytics; ?>"></script>
 			<script>
 			  window.dataLayer = window.dataLayer || [];
@@ -88,6 +87,7 @@ exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
 
 			  gtag('config', '<?php echo $google_analytics; ?>');
 			</script>
+
 		<?php } ?>
 		
 	<?php } ?>

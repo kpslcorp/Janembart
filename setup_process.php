@@ -16,7 +16,7 @@ $hp_metadesc = addslashes($_POST["hp_metadesc"]);
 $nb_fiche_section = $_POST["nb_fiche_section"];
 $way_of_the_fight = getcwd();
 $extension = ".html";
-$version="3.1.8";
+$version="3.2.0";
 $datdujour = date("Y-m-d H:i:s");
 
 // Detection du protocole (y compris via Flexible SSL de Cloudflare)
@@ -214,6 +214,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				$smartimprovment .= "\$mail = '$mail';"."\n";
 				$smartimprovment .= "\$extension = '$extension';"."\n";
 				$smartimprovment .= "\$version = '$version';"."\n\n";
+				$smartimprovment .= "\$payant_only = false; // Le site est 100% payant = true | Sinon = false"."\n\n";
 				$smartimprovment .= "// Données Mysql"."\n";
 				$smartimprovment .= "\$serveur = '$serveur'; // Ex : localhost"."\n"; 
 				$smartimprovment .= "\$nom_utilisateur = '$nom_utilisateur'; // Nom utilisateur SQL"."\n";

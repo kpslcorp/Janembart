@@ -1,7 +1,9 @@
 <?php
 $aiguilleur = isset($_GET['f']) ? $_GET['f'] : NULL;
 $id = isset($_GET['id']) ? $_GET['id'] : NULL;
-$id = valid_donnees($id);
+if (!is_null($id)) {
+	$id = valid_donnees($id);
+}
 
 if($aiguilleur=='1'){ // Formulaire Catégorie
 
@@ -9,8 +11,8 @@ if($aiguilleur=='1'){ // Formulaire Catégorie
 	
 	$c = rcp_cat($_GET['id'], '');
 	
-	$cool_cat_titre = stripslashes($c[0]['titre']);
-	$cool_cat_contenu = stripslashes($c[0]['description']);
+	$cool_cat_titre = stripslashes($c[0]['titre']) ?? "";
+	$cool_cat_contenu = stripslashes($c[0]['description']) ?? "";
 	
 	// Cas 1 = Update
 	
@@ -190,7 +192,10 @@ elseif($aiguilleur=='2'){ // Formulaire Section
 		<select name="id_cat" style="width: 400px;">
 			<?php $categorie = rcp_cat('', 'ORDER BY titre ASC');
 					foreach($categorie as $cat) { ?>	
-						<option value="<?php echo $cat['id_cat']; ?>" <?php if ($se[0]['id_cat'] == $cat['id_cat']) { echo 'selected'; } ?>><?php echo stripslashes($cat['titre']); ?></option>
+						<option value="<?php echo $cat['id_cat']; ?>" 
+							<?php if (isset($se[0]['id_cat']) && $se[0]['id_cat'] == $cat['id_cat']) { echo 'selected'; } ?>>
+							<?php echo stripslashes($cat['titre']); ?>
+						</option>
 			<?php } ?>
 		</select>
 	</p>

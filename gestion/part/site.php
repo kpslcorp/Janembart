@@ -189,7 +189,7 @@ catch(Exception $e)
         die();
 }
 
-$query = trim(broken_html($_POST['search']));
+$query = isset($_POST['search']) ? trim(broken_html($_POST['search'])) : '';
 $bind_slug = str_replace(" ","-",$query);
 
 //traitement de la requête
@@ -324,7 +324,7 @@ elseif($aiguilleur=='6'){
 			}
 			
 			// Pagination
-			$ma_limite = $_GET['limit'];
+			$ma_limite = $_GET['limit'] ?? "";
 			if(isset($ma_limite)) {
 				
 				$limit = intval($ma_limite)+100;

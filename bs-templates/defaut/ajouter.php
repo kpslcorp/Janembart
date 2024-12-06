@@ -40,6 +40,11 @@ include 'header.php';
 	</p>	
 	</div>
 	
+	<?php 
+		if (($payant_only == true) && ($fastpass != "yes")) { ?>
+			<p>Pour soumettre un nouveau site vous devez avoir un compte pro. Si vous en avez déjà un, connectez-vous, sinon <a href="/acces-pro/creation-pro.php">inscrivez-vous ici</a>.</p>
+	<?php } else { ?>
+	
 	<?php if ($credit_epuise == "yes") { ?>
 		
 		<div class='info_jaune'>
@@ -217,7 +222,11 @@ span.conseil {display:none;}
 
 </div>
 
-<?php } // Fin de la condition liée aux crédits ?>
+<?php } // Fin de la condition liée aux crédits 
+
+} // Fin de la condition du au compte payant 
+		
+?>
 
 </div>
 

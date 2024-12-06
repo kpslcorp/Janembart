@@ -24,7 +24,7 @@ include 'right-colonne.php'; ?>
 		
 		<?php if ($amp == true) { ?>
 			<?php if (!empty($google_analytics)) { ?>
-				 <amp-analytics type="gtag" data-credentials="include">
+				<amp-analytics type="gtag" data-credentials="include">
 					<script type="application/json">
 					{
 					  "vars" : {
@@ -37,7 +37,7 @@ include 'right-colonne.php'; ?>
 					  }
 					}
 					</script>
-					</amp-analytics>
+				</amp-analytics>
 			<?php } ?>
 		<?php } ?>
 </body>
