@@ -5,17 +5,17 @@
 		   vous aurez JANEMBAAAART !		      
 
  ____________________________________________________________
-* Version :          3.2.0                                    *
-* Date de sortie de Bartemis   	28 12 2009	            	  *
-* Date de sortie de Janembart  	01 01 2021		     	      *
-* Dernière Modification :  		06 12 2024		              *
+* Version :          3.2.1                                    *
+* Date de sortie de Bartemis   	28 12 2009	              *
+* Date de sortie de Janembart  	01 01 2021		      *
+* Dernière Modification :  		22 06 2025	      *
 * Ce logiciel est sous licence libre et est distribué sans    *
 * aucune garantie, lire licences.txt pour plus de précisions. *
 * ____________________________________________________________*
 
 ***************************************************************
 
-Janembart est un forks du script de génération d'annuaire Bartemis laissé à l'abandon par son créateur, ce qui permet à ce formidable outil de revivre et d'être compatible avec les nouvelles normes (PHP 8.0, HTTPS...)
+Janembart est un forks du script de génération d'annuaire Bartemis laissé à l'abandon par son créateur, ce qui permet à ce formidable outil de revivre et d'être compatible avec les nouvelles normes (PHP 8.0+, HTTPS...)
 
 Le Script Janembart X Bartemis est un script Open Source soumis a une licence GNU GPL (https://www.gnu.org/) vous permettant de créer votre annuaire en quelques secondes.
 

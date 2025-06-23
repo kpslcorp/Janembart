@@ -17,11 +17,11 @@ $mail_user_session_pay = $_SESSION['mail_user'];
 					  <div style="text-align: center;">
 						<div style="margin-bottom: 1.25rem;">
 						<select id="item-options">
-							<option value="1 crédit <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="8.32">1 crédit - 9.99 EUR TTC</option>
-							<option value="10 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="89">10 crédits - 89 EUR HT (soit 8.90€ HT/unité)</option>
-							<option value="25 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="199">25 crédits - 199 EUR HT (soit 7.96€ HT/unité)</option>
-							<option value="50 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="350">50 crédits - 350 EUR HT (soit 7.00 € HT/unité)</option>
-							<option value="100 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="550">100 crédits - 550 EUR HT (soit 5.50€ HT/unité)</option>
+							<option value="1 crédit <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="19.90">1 crédit - 19.90 EUR HT</option>
+							<option value="10 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="169">10 crédits - 169.00 EUR HT (soit 16.90€ HT/unité)</option>
+							<option value="25 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="399">25 crédits - 399.00 EUR HT (soit 15.96€ HT/unité)</option>
+							<option value="50 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="699">50 crédits - 699.00 EUR HT (soit 13.98 € HT/unité)</option>
+							<option value="100 crédits <?php echo $titre_annuaire; ?> | ID : <?php echo $mail_user_session_pay; ?>" price="990">100 crédits - 990.00 EUR HT (soit 9.90€ HT/unité)</option>
 						</select>
 						  <select style="visibility: hidden" id="quantitySelect"></select>
 						</div>

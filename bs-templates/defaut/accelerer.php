@@ -29,7 +29,12 @@ $id = valid_donnees($_GET["id"]);
 	
 	<?php if ($module_de_paiement == TRUE) { 
 	
-		echo "<div class='info_jaune'><p>Pour valider en moins de 48h votre site, vous pouvez soit <u><a href='contact.html'>nous contacter</a></u> pour définir un moyen de paiement, soit payer en ligne via le formulaire ci-dessous.</p></div><h2>Formulaire de paiement</h2>";
+		echo "<div class='info_jaune'><p>Pour valider en moins de 48h votre site, vous pouvez soit <u><a href='contact.html'>nous contacter</a></u> pour définir un moyen de paiement, soit payer en ligne via le formulaire ci-dessous.</p></div><h2>Formulaire de paiement</h2>
+			
+		<div class='info_jaune'>
+			<p>Validation Express = 59.60 EUR TTC (<em>49.67€HT</em>) ⤵️</p>
+		</div>
+		";
 		
 		include 'payp_fl.php'; 
 		

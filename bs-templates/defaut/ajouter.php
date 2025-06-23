@@ -67,6 +67,9 @@ include 'header.php';
 		<li>Vous devez fournir une <u>description unique</u> d'au moins <span style="color:red;font-weight:bold;"><?php echo $nb_cara_description; ?> caractères OBLIGATOIREMENT !</span></li>
 		<li>Votre site ne doit pas être en cours de construction.</li>
 		<li>Votre site doit comporter les mentions légales obligatoires.</li>
+		<?php if ($fastpass != "yes"  && $payant_only_end_of_tunel){ ?>
+			<li>Tarif communiqué Step 2 en fonction de la catégorie choisie.</li>
+		<?php } ?>
 		<li>* désigne les champs à remplir obligatoirement.</li>
 	</ul>
 	</div>

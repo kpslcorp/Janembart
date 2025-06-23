@@ -702,6 +702,7 @@ function site_register($description_c, $fastpass, $coins) {
 	global $nb_cara_description;
 	global $msg2modo;
 	global $forcebacklink;
+	global $payant_only_end_of_tunel;
 	
 	$titre = valid_donnees($_POST["titre"]);
 	$url = valid_donnees($_POST["url"]);
@@ -732,11 +733,19 @@ function site_register($description_c, $fastpass, $coins) {
 		
 	} else {
 		
-		$msg_ok = "<p>✅ Site proposé avec succès ! Un modérateur le validera le plus vite possible. Nous vous remercions d'avoir choisi notre annuaire et vous souhaitons un agréable surf 🏄‍</p>";
-		
-		if ($forcebacklink != "oui") {
+		if ($payant_only_end_of_tunel == true) {
 			
-			$msg_ok .= "<p><span style='color:red;font-weight:bold;background:yellow;'>💡 Augmentez vos chances de voir votre site validé sur notre annuaire en insérant un lien retour sur votre site !</span></p>";
+			$msg_ok = "<p>✅ Etape 1/2 terminée. Nous avons bien reçu votre soumission. Pour valider votre inscription, merci de procéder au paiement via le formulaire Paypal ci-dessous.<br/>💡 Si vous avez plusieurs sites à nous proposer, <a href='/contact.html'>contactez-nous</a> pour ouvrir un compte pro et profiter de tarifs plus avantageux.</p>";
+			
+		} else {
+			
+			$msg_ok = "<p>✅ Site proposé avec succès ! Un modérateur le validera le plus vite possible. Nous vous remercions d'avoir choisi notre annuaire et vous souhaitons un agréable surf 🏄‍</p>";
+			
+			if ($forcebacklink != "oui") {
+				
+				$msg_ok .= "<p><span style='color:red;font-weight:bold;background:yellow;'>💡 Augmentez vos chances de voir votre site validé sur notre annuaire en insérant un lien retour sur votre site !</span></p>";
+				
+			}
 			
 		}
 		
@@ -1018,8 +1027,12 @@ function site_register($description_c, $fastpass, $coins) {
 			
 			if ($fastpass != "yes") { // Si webmaster lambda, on détruit toute la session après soumission
 			
-				mail_site_en_attente($mail_auteur, $url, $id_du_dernier_enregistrement);
-				session_destroy ();
+				if (!$payant_only_end_of_tunel) {
+					mail_site_en_attente($mail_auteur, $url, $id_du_dernier_enregistrement);
+					session_destroy ();
+				} else {
+					session_destroy ();
+				}
 			
 			} else {
 				// Si Fastpass on détruit que les champs du site pour ne pas déconnecter le PRO
