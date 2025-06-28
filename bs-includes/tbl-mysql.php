@@ -25,14 +25,18 @@ function rcp_site($id_site, $section, $order, $valide, $type, $limit){
 
 	global $url_annuaire, $extension;
         
-		$sect= "";
+		$sect = "";
 		$val = "";
 		$site = array();
 			
-			if($valide == 1) 
+			if($valide == 1) // validé et en ligne
 				{$val = " AND valide=1";}	
-			elseif($valide == 2) 
+			elseif($valide == 2) // En attente de validation sans paiement nécessaire
 				{$val = " AND valide=2";}
+			elseif($valide == 3) // En attente de paiement	
+				{$val = " AND valide=3";}
+			elseif($valide == 4) // Potentiellement Payé
+				{$val = " AND valide=4";}
 			
 			if($type == 1)
 				{$type = " AND type=1";}		
@@ -315,7 +319,7 @@ function stat_site ($valide, $type) {
 		$type1 = 'AND type = '.$type;
 	}
 	if(intval($valide)!=1) {
-		$req = mysqli_query($connexion, "SELECT COUNT(id_site) FROM ".TABLE_SITE." WHERE valide=2 $type1");
+		$req = mysqli_query($connexion, "SELECT COUNT(id_site) FROM " . TABLE_SITE . " WHERE valide IN (2,3,4) $type1");
 	} else {
 		$req = mysqli_query($connexion,"SELECT COUNT(id_site) FROM ".TABLE_SITE." WHERE valide=1 $type1");	
 	}
@@ -670,6 +674,37 @@ function mail_site_en_attente ($mail_auteur, $url, $id_du_dernier_enregistrement
 	mail($destinataire, $sujet, $message, $headers);
 }
 
+function mail_site_en_attente_de_payement($mail_auteur, $url, $id_du_dernier_enregistrement = false){
+	
+    global $titre_annuaire, $url_annuaire, $mail, $paypal_id, $mode_vacances;
+
+    $destinataire = $mail_auteur;
+    $sujet = "💳 Paiement requis pour la validation de votre site sur $titre_annuaire";
+    $message = file_get_contents(dirname(__FILE__) . '/../config/mail_en_attente_payement.php');
+
+
+    $message = str_replace('%url_annuaire%', $url_annuaire, $message);
+    $message = str_replace('%titre_annuaire%', stripslashes($titre_annuaire), $message);
+    $message = str_replace('%titre_site%', $url, $message);
+
+    if (!empty($paypal_id) && $mode_vacances === false && $id_du_dernier_enregistrement) {
+        $permalink_fastlane  = $url_annuaire . 'finaliser.html?id=' . $id_du_dernier_enregistrement;
+        $bloc_fastlane  = "<h3>🚀 Finalisez votre inscription !</h3>
+                           <p>Pour finaliser votre inscription dès maintenant&nbsp;:
+                           <a href='$permalink_fastlane'>cliquez ici pour accèder à la page de paiement</a>.</p>";
+        $message = str_replace('%URL_FASTLANE%', $bloc_fastlane, $message);
+    } else {
+        $message = str_replace('%URL_FASTLANE%', '', $message);
+    }
+
+    $headers  = "Mime-Version: 1.0\r\n";
+    $headers .= "Content-type: text/html; charset=utf-8\r\n";
+    $headers .= "From: $titre_annuaire <$mail>\r\n";
+    $headers .= "Reply-To: $titre_annuaire <$mail>\r\n";
+
+    mail($destinataire, $sujet, $message, $headers);
+}
+
 function mail_site_validation_express ($mail_auteur, $url, $id_du_dernier_enregistrement, $titrekrang) {
 
 	global $titre_annuaire, $url_annuaire, $mail, $extension;
@@ -1014,8 +1049,14 @@ function site_register($description_c, $fastpass, $coins) {
 				$juice=10;
 				
 			}
+			
+			if ($payant_only_end_of_tunel) {
+				$statut_before_payment = '3';
+			} else {
+				$statut_before_payment = '2';
+			}
 		
-			$sql = "INSERT INTO ".TABLE_SITE." (sect,type,titre,url,ancre,url_retour,url_rss,description,mail_auteur,valide,compteur,note,dat,date2validation) VALUES ('".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '2', '2', '".$juice."', '".$dat."','1000-01-01 00:00:00');";
+			$sql = "INSERT INTO ".TABLE_SITE." (sect,type,titre,url,ancre,url_retour,url_rss,description,mail_auteur,valide,compteur,note,dat,date2validation) VALUES ('".intval($sect)."', '".$type."', '".$titre."',	'".$url."', '".$ancre."', '".$url_retour."', '".$url_rss."', '".$description."', '".$mail_auteur."', '".$statut_before_payment."', '2', '".$juice."', '".$dat."','1000-01-01 00:00:00');";
 			
 			$res = mysqli_query($connexion,$sql);
 		
@@ -1031,6 +1072,7 @@ function site_register($description_c, $fastpass, $coins) {
 					mail_site_en_attente($mail_auteur, $url, $id_du_dernier_enregistrement);
 					session_destroy ();
 				} else {
+					mail_site_en_attente_de_payement($mail_auteur, $url, $id_du_dernier_enregistrement);
 					session_destroy ();
 				}
 			

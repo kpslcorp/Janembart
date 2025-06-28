@@ -4,7 +4,7 @@ session_start();
 // Module pour empecher le include d'être appelé directement
 if (empty($variable_temoin))
 {
-exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
+	exit("Quelque-chose me dit que vous n'avez rien à faire ici ?!");
 } 
 // Module pour empecher le include d'être appelé directement
 
@@ -15,7 +15,7 @@ $key = $_SESSION["lightkey"];
 $k .= $key;
 if (isset($_COOKIE["PaypalThx"])) {$cookie = $_COOKIE['PaypalThx'].$key;} else {$cookie = NULL;}
 
-$id = valid_donnees($_GET["id"]); 
+$id = (int) valid_donnees($_GET["id"]);
 $pt = valid_donnees($_GET["pt"]);
 
 
@@ -49,16 +49,21 @@ if ($_COOKIE["PaypalThx"] == "sechgut") {		// Si la page merci a déjà été af
 	}
 
 	// On prévient l'admin par mail
-				$destinataire = $mail;
-				$sujet = "🦀💲🥂 Un paiement a été effectué sur $titre_annuaire 🥂💲🦀";
-				$headers = 'Mime-Version: 1.0'."\r\n";
-				$headers .= 'Content-type: text/html; charset=utf-8'."\r\n";
-				$headers .= "From: $titre_annuaire <$mail>"."\r\n";
-				
-				$message = "<h1>🦀💲🥂 Bonne nouvelle 🥂💲🦀</h1><p>Un paiement Paypal vient d'être effectué sur $url_annuaire<em>en tout cas la page de remerciement du client s'est déclenchée</em> - à toi de vérifier !</p><ul><li>Il s'agit d'un paiement pour une <strong>$pay_type</strong></li><li>$idtype $id</li></ul>$complementmail";
+	$destinataire = $mail;
+	$sujet = "🦀💲🥂 Un paiement a été effectué sur $titre_annuaire 🥂💲🦀";
+	$headers = 'Mime-Version: 1.0'."\r\n";
+	$headers .= 'Content-type: text/html; charset=utf-8'."\r\n";
+	$headers .= "From: $titre_annuaire <$mail>"."\r\n";
+	
+	$message = "<h1>🦀💲🥂 Bonne nouvelle 🥂💲🦀</h1><p>Un paiement Paypal vient d'être effectué sur $url_annuaire - <em>en tout cas la page de remerciement du client s'est déclenchée</em> - à toi de vérifier !</p><ul><li>Il s'agit d'un paiement pour une <strong>$pay_type</strong></li><li>$idtype $id</li></ul>$complementmail";
 				
 	mail($destinataire, $sujet, $message, $headers);
 	// On prévient l'admin par mail
+	
+	
+	// Passage au statut 4 Paiement à priori effectué, a confirmer
+	$sql_go_to_step_4 = "UPDATE ".TABLE_SITE." SET valide='4' WHERE id_site = '".$id."'";
+	$res = mysqli_query($connexion,$sql_go_to_step_4);
 	
 	setcookie("PaypalThx","sechgut", time()+3600, "/");	// On paramètre le cookie pour empecher le rechargement de la page
 	?>

@@ -341,7 +341,7 @@ elseif($aiguilleur=='6'){
 			// Recuperation de la liste
 				
 			$site = rcp_site('', '', 'ORDER BY '.$get_order.' LIMIT '.intval($ma_limite).', '.$limit, '', '', '');
-			
+	
 			require_once dirname(__FILE__).'/../../bs-includes/email_blacklist.php';
 						
 			if (!empty($site)) {
@@ -359,15 +359,38 @@ elseif($aiguilleur=='6'){
 						$spot_relou = "";
 						
 					}
+					
+					$statut_du_site = (int) $s['valide'];
 				
 			?>
 			
-			<tr <?php if ($s['valide'] == 2){ ?>style="opacity:0.5;"<?php } ?>>
-				<td colspan="8"><a class='thuglife' href="<?php echo $s['url']; ?>" target='_blank' rel='nofollow noreferrer noopener' ><?php echo url_www($s['url']); ?></a></td>
+			<tr <?php if ($statut_du_site != 1 && $statut_du_site != 4) { ?>style="opacity:0.5;"<?php } ?>>
+				 <td colspan="8">
+					<a class='thuglife' href="<?php echo $s['url']; ?>" target="_blank" rel="nofollow noreferrer noopener">
+						<?php echo url_www($s['url']); ?>
+					</a>
+					<?php if ($statut_du_site == 4) { ?>
+						<span style="background: red;font-weight: bold;color: yellow;display: block;">⚠️ Semble avoir payé ! A valider au plus vite après verification ⚠️</span>
+					<?php } ?>
+				</td>
 			</tr>
-			<tr <?php if ($s['valide'] == 2){ ?>style="opacity:0.5;"<?php } ?>>
+			<tr <?php if ($statut_du_site != 1){ ?>style="opacity:0.5;"<?php } ?>>
 				<td><?php echo $s['id_site']; ?></td>
-				<td><?php if ($s['valide'] == 1){ ?><a href="<?php echo $s['info']['permanlink'];?>" target='_blank' rel='nofollow noreferrer noopener'>✅️</a><?php } else { echo '⌛'; } ?></td>
+				<td>
+					<?php 
+					if ($statut_du_site == 1) { 
+						?>
+						<a href="<?php echo $s['info']['permanlink']; ?>" target="_blank" rel="nofollow noreferrer noopener">✅️</a>
+						<?php 
+					} elseif ($statut_du_site == 3) { 
+						echo '⏳'; 
+					} elseif ($statut_du_site == 4) { 
+						echo '💸'; 
+					} else { 
+						echo '⌛'; 
+					} 
+					?>
+				</td>
 				<td><a class='maildepot' href="gestion/?act=1&id=<?php echo $s['id_site']; ?>" title="<?php $date = new DateTime($s['f_date']);echo "⌛ ". $date->format('d/m/Y');if ($s['valide'] == 1) { 
 				$v_date = new DateTime($s['v_date']); echo " ☑️ ". $v_date->format('d/m/Y');} ?>">⚙️ <?php echo stripslashes($s['titre']); ?></a></td>
 				<td><a class='maildepot' href="mailto:<?php echo $mailauteur; ?>"><?php echo $mailauteur; ?></a></td>
@@ -424,7 +447,9 @@ elseif(intval($_GET['id'])>0) { // Fiche Site
 		
 			<td class="align_left" width="20%">
 			
-				<label>📅 Proposé <?php if ($s['valide'] == 1) { echo "/ Validé "; } ?>:</label></td>
+				<label>📅 Proposé <?php if ($s['valide'] == 1) { echo "/ Validé "; } ?>:</label>
+				
+			</td>
 				
 			<td>
 			

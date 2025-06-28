@@ -203,6 +203,16 @@ if (isset($_GET['act'])){
 		
 	}
 	
+	//Payer apres coup
+	elseif($_GET['act']=='finaliser') {
+	
+		$head.= '<title>Finaliser la validation de mon site sur '.$titre_annuaire.'</title>'."\n";
+		$head.= '<meta name="description" content="Finalisez la validation !" />'."\n";
+		$head.= '<link rel="canonical" href="'.$url_annuaire.'finaliser.html" />'."\n";
+		$head.= '<meta name="robots" content="noindex, nofollow">'."\n";
+		
+	}
+	
 	//Merci (Paiement OK)
 	elseif($_GET['act']=='merci') {
 	

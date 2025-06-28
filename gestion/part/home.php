@@ -1,64 +1,80 @@
-		<div class="titre_colonne" style="margin-top:5px">🔥 Sites à valider (ou pas) </div>
+	
+		<?php
 		
-		<table width="100%" id="listisite">
-			<thead>
-			<tr>
-				<th>⚙️ Site <a href="gestion/?order=titre-ASC">&uArr;</a> <a href="gestion/?order=titre-DESC">&dArr;</a></th>
-				<th>🌐 URL</th>
-				<th>🔗 BL</th>
-				<th align="center" style="text-align:center">🗑</th>
-				
-			</tr>
-			</thead>
-			<?php 
-			
-			if(!empty($_GET['order'])){
-				$get_order = str_replace('-', ' ', strip_tags($_GET['order']));
-			}
-			else {
-				$get_order = 'url_retour DESC, id_site ASC';
-			}
-			
-			$site = rcp_site('', '', 'ORDER BY '.$get_order.'', '2', '', '');
-			
-			if(is_array($site)) {
-				echo "<tbody>";
+			$get_order = !empty($_GET['order'])
+					   ? str_replace('-', ' ', strip_tags($_GET['order']))
+					   : 'url_retour DESC, id_site ASC';
 
-					require_once dirname(__FILE__).'/../../bs-includes/email_blacklist.php';
-					foreach ($site as $s) { 
-						$mailauteur = $s['mail_auteur'];
-						if (in_array($mailauteur, $email_colimateur)) 
-						{$spot_relou = "⚠️";} 
-						else 
-						{$spot_relou = "";}
-						$mister_bl = $s['url_retour']; 
-					?>
-						<tr <?php if (!empty($mister_bl)){ echo "style='background:yellow;'"; } ?>>
-							<td style="text-align:left;">
-								<a class="homethuglife" href="gestion/?act=1&id=<?php echo $s['id_site']; ?>" class="settingsite">⚙️ <?php echo stripslashes($s['titre']); ?></a>
-								✉️ <?php echo $spot_relou; ?><a href="mailto:<?php echo $mailauteur; ?>" class='maildepot'><?php echo $mailauteur; ?></a>
-								<br />
-								📅 <em style='font-size:12px;'><?php $date = new DateTime($s['f_date']);	echo $date->format('d/m/Y'); ?></em>
-							</td>
-							<td>
-								<a href="<?php echo $s['url'];?>" target='_blank' rel='nofollow noreferrer noopener' class='newtab'><?php echo url_www($s['url']); ?></a>
-							</td>	
-							<td>
-								<?php if (empty($mister_bl)){ echo '⭕'; } else { echo "<a href='$mister_bl' target='_blank' rel='nofollow noreferrer noopener'>✅</a>"; } ?>
-							</td>
-							<td style="text-align:center">
-								<a href="gestion/?act=1&f=31&id=<?php echo $s['id_site']; ?>" onclick="return confirm('Etes-vous sur de vouloir supprimer <?php echo stripslashes($s['titre']); ?> de votre annuaire ?')">🗑️</a>
-							</td>
-						</tr>
-					
-					<?php
-					unset($mailauteur); 
-					} 
-				echo "</tbody>";
-			} ?>
-			</table>
 			
-			<?php 
+			function show_site_block(string $label, int $statut, string $get_order) {
+
+				$sites = rcp_site('', '', "ORDER BY $get_order", $statut, '', '');
+
+				echo "<div class='titre_colonne' style='margin-top:5px'>"
+				   . htmlspecialchars($label)
+				   . "</div>\n";
+
+				if (!is_array($sites) || empty($sites)) {
+					echo "<p style='text-align:center;'>Aucun site dans cette catégorie.</p>";
+					return;
+				}
+
+				echo "<table width='100%' id='listisite' class='listesite'><thead>"; // id rétabli
+						echo "<tr>
+							<th>⚙️ Site</th>
+							<th>🌐 URL</th>
+							<th>🔗 BL</th>
+							<th style='text-align:center'>🗑</th>
+						</tr>
+					  </thead>\n<tbody>";
+
+				/* pour repérer les auteurs blacklistés */
+				require_once dirname(__FILE__) . '/../../bs-includes/email_blacklist.php';
+
+				foreach ($sites as $s) {
+
+					$mail = $s['mail_auteur'];
+					$is_blacklisted = in_array($mail, $email_colimateur);
+					$spot_relou     = $is_blacklisted ? "⚠️" : "";
+
+					$mister_bl      = $s['url_retour'];
+					$row_style      = empty($mister_bl) ? "" : " style='background:yellow;'";
+					$date           = (new DateTime($s['f_date']))->format('d/m/Y');
+
+					echo "<tr{$row_style}>
+							<td>
+								<a class='homethuglife' href='gestion/?act=1&id={$s['id_site']}'>⚙️ " . stripslashes($s['titre']) . "</a>
+								✉️ $spot_relou<a href='mailto:$mail' class='maildepot'>$mail</a><br>
+								📅 <em style='font-size:12px;'>$date</em>
+							</td>
+							<td>
+								<a href='{$s['url']}' target='_blank' rel='nofollow noreferrer noopener' class='newtab'>"
+									. url_www($s['url']) .
+								"</a>
+							</td>
+							<td>"
+								. (empty($mister_bl) ? '⭕' : "<a href='$mister_bl' target='_blank' rel='nofollow noreferrer noopener'>✅</a>") .
+							"</td>
+							<td style='text-align:center'>
+								<a href='gestion/?act=1&f=31&id={$s['id_site']}'
+								   onclick=\"return confirm('Etes-vous sûr de vouloir supprimer "
+								   . addslashes(stripslashes($s['titre']))
+								   . " de votre annuaire ?')\">🗑️</a>
+							</td>
+						  </tr>";
+				}
+
+				echo "</tbody>\n</table>\n";
+			}
+
+			global $payant_only_end_of_tunel;
+			if ($payant_only_end_of_tunel == false) {
+				show_site_block('🔥 Sites à valider (ou pas)'             , 2, $get_order); 
+			} else {
+				show_site_block('💥💥💥 Site à valider avec potentiel paiement' , 4, $get_order); 
+				show_site_block('⌛ Site avec paiement en attente'           , 3, $get_order);  
+			}
+		
 			$mesrelances = mysqli_query($connexion, "SELECT * FROM ".TABLE_RELANCE." n INNER JOIN ".TABLE_SITE." f ON f.id_site = n.id_site WHERE n.date_ticket < date_sub(curdate(), interval 14 day)");
 			if(mysqli_num_rows($mesrelances)>0)	{ 
 				$tableaurelance = '
@@ -121,7 +137,7 @@
 			
 			<h5>Comment modifier le template ?</h5>
 			<ul>
-				<li>Rendez-vous dans le dossier 'bs-templates/defaut/' pour trouver tous les fichiers de templates.</li>
+				<li>Rendez-vous dans le dossier 'bs-templates/defaut/' pour trouver tous les fichiers templates.</li>
 				<li>Le code situé entre les balises &lt;head> se trouve dans le fichier "bs-include/general.php"</li>
 			</ul>
 			<p>⚠️ Attention : le template fourni par défaut est 100% compatible AMP (<em>version ultra rapide qui plait beaucoup à Google</em>). En le modifiant pensez à respectez les normes AMP (<a href="https://amp.dev/documentation/guides-and-tutorials/?format=websites" rel="nofollow noreferrer noopener" target="_blank">voir la documentation officielle</a> et le <a href="https://validator.ampproject.org/" rel="nofollow noreferrer noopener" target="_blank">validateur</a>). Vous pouvez vous aider des codes <strong>&lt;?php if ($amp == true) { %VOTRE CONTENU AMP% } else { %VOTRE CONTENU HTML% } ?></strong> pour insérez dans le thème des éléments spécifiques.</p>

@@ -271,6 +271,7 @@ $xfiles = "$way_of_the_fight/config.php"; // Construction du nom du fichier
 				$htaccess2k .="RewriteRule ^parametrer.html index.php?act=parampro [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^recharger.html index.php?act=recharger [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^accelerer.html index.php?act=accelerer [QSA,L]"."\n";
+				$htaccess2k .="RewriteRule ^finaliser.html index.php?act=finaliser [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^merci.html index.php?act=merci [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^boostmywebsite.html index.php?act=selfpro [QSA,L]"."\n";
 				$htaccess2k .="RewriteRule ^updatemywebsite.html index.php?act=selfproupdate [QSA,L]"."\n";
