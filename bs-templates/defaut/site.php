@@ -84,48 +84,61 @@ include 'header.php';
  <div style='clear:both;'></div>
 		
 <?php if (!empty($s['url_rss'])) {
-	
-	$curl = curl_init(); // On lance curl
-	
-	$url_rss = $s['url_rss']; // On récupère l'url du RSS
-	// Module pour corriger le bug sur les flux Wordpress
-	$slashornot = substr("$url_rss", -4); // On récupère les 4 derniers caractères de l'URL
-	if ($slashornot == "feed") {$url_rss = "$url_rss/";} // Si l'url termine par feed mais sans le / on le rajoute.
 
+    $curl = curl_init();
 
-	curl_setopt_array($curl, Array(
-		CURLOPT_URL            => $url_rss,
-		CURLOPT_HEADER         => false, 
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_USERAGENT      => 'spider',
-		CURLOPT_TIMEOUT        => 120,
-		CURLOPT_CONNECTTIMEOUT => 30,
-		CURLOPT_RETURNTRANSFER => TRUE,
-		CURLOPT_ENCODING       => 'UTF-8',
-		CURLOPT_MAXREDIRS      => 10,
-	));
+    $url_rss = $s['url_rss'];
+    // Corrige uniquement si l'URL finit par /feed (pas pour .xml)
+    if (preg_match('~/feed$~i', $url_rss)) { $url_rss .= '/'; }
 
-	$data = curl_exec($curl);
+    curl_setopt_array($curl, [
+        CURLOPT_URL            => $url_rss,
+        CURLOPT_HEADER         => false,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_USERAGENT      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127 Safari/537.36',
+        CURLOPT_HTTPHEADER     => ['Accept: application/rss+xml, application/atom+xml, application/xml;q=0.9,*/*;q=0.8'],
+        CURLOPT_TIMEOUT        => 30,
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING       => '', 
+        CURLOPT_MAXREDIRS      => 5,
+    ]);
 
-	curl_close($curl);
+    $data = curl_exec($curl);
+    curl_close($curl);
 
-	$xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+    if (!is_string($data) || $data === '') { return; }
 
-	if ($xml!="") {
-		echo "<h2 class='titre_colonne'>📰 Derniers billets du média :</h2><ul class='fluxrss'>";
-					for($i = 0; $i < 5; $i++){
-						$title = $xml->channel->item[$i]->title;
-						$link = $xml->channel->item[$i]->link;
-						if (empty($title)) { 
-							break; 
-						}
-						else {
-							echo "<li><a target='_blank' href='$link'>$title</a></li>";
-						}
-					}
-		echo "</ul><div style='clear:both;'></div>
-   ";
-	}
+    // Parse XML
+    libxml_use_internal_errors(true);
+    $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+    if ($xml === false) { libxml_clear_errors(); return; }
+
+    // Récupérer items (RSS ou Atom)
+    if (isset($xml->channel->item)) {
+        $items = $xml->channel->item;              // RSS 2.0
+    } elseif (isset($xml->entry)) {
+        $items = $xml->entry;                       // Atom
+    } else {
+        $items = [];
+    }
+
+    if (!empty($items)) {
+        echo "<h2 class='titre_colonne'>📰 Derniers billets du média :</h2><ul class='fluxrss'>";
+        $c = 0;
+        foreach ($items as $it) {
+            if ($c++ >= 5) break;
+            $title = trim((string)($it->title ?? ''));
+            $link  = trim((string)($it->link  ?? ''));
+            if ($link === '' && isset($it->link['href'])) { $link = (string)$it->link['href']; } // Atom
+            if ($title === '' || $link === '') continue;
+
+            $t = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+            $l = htmlspecialchars($link,  ENT_QUOTES, 'UTF-8');
+            echo "<li><a target='_blank' rel='noopener' href='$l'>$t</a></li>";
+        }
+        echo "</ul><div style='clear:both;'></div>";
+    }
 } ?>
 
 <?php 
