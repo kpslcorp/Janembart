@@ -105,24 +105,43 @@ include 'header.php';
     ]);
 
     $data = curl_exec($curl);
+	$http = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
 
-    if (!is_string($data) || $data === '') { return; }
+   $can_parse = true;
 
-    // Parse XML
-    libxml_use_internal_errors(true);
-    $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-    if ($xml === false) { libxml_clear_errors(); return; }
+	if ($http >= 400 || !is_string($data) || $data === '' || $data === false) { 
+		$can_parse = false;
+	}
+	
+	// Pas de balises XML attendues
+	if ($can_parse && (strpos($data, '<rss') === false && strpos($data, '<feed') === false)) {
+		$can_parse = false;
+	}
+	
+	$items = [];
+		
+	if ($can_parse) {
 
-    // Récupérer items (RSS ou Atom)
-    if (isset($xml->channel->item)) {
-        $items = $xml->channel->item;              // RSS 2.0
-    } elseif (isset($xml->entry)) {
-        $items = $xml->entry;                       // Atom
-    } else {
-        $items = [];
-    }
+		// Parse XML
+		libxml_use_internal_errors(true);
+		$xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+		if ($xml === false) {
+			libxml_clear_errors();
+			$can_parse = false;
+		}
 
+		// Récupérer items (RSS ou Atom)
+		if ($can_parse) {
+			if (isset($xml->channel->item)) {
+				$items = $xml->channel->item;              // RSS 2.0
+			} elseif (isset($xml->entry)) {
+				$items = $xml->entry;                       // Atom
+			}
+		}
+		
+	}
+	
     if (!empty($items)) {
         echo "<h2 class='titre_colonne'>📰 Derniers billets du média :</h2><ul class='fluxrss'>";
         $c = 0;
